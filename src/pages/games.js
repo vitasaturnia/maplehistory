@@ -17,9 +17,9 @@ const Games = () => (
                     <h3 className="">Official Games</h3>
                 </div>
 
-
+          <div className="container thescreenisfull">
             <div className="fullscreen">
-                <div className="columns">
+                <div className="columns is-centered">
 
                     <div className="column gridbox">
                         <Link to ="/axiescholarships" className="is-warning">
@@ -69,6 +69,7 @@ const Games = () => (
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </Layout>
 );

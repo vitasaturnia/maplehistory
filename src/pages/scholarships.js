@@ -14,7 +14,7 @@ const Scholarships = () => (
                 <FontAwesomeIcon icon={faUserGraduate}/>
                 <h3 className="">Scholarship program</h3>
             </div>
-
+<div className="container thescreenisfull">
                 <div className="fullscreen">
                     <div className="columns is-one-third is-two-thirds">
 
@@ -26,7 +26,7 @@ const Scholarships = () => (
                             </Link>
                         </div>
 
-                        <div className="column is-one-third gridbox level has-text-centered">
+                        <div className="column gridbox level has-text-centered">
                             <Link to ="/splinterlandscarddelegation" className="is-warning" >
                                 <div className="verticalhelper">
                                 <StaticImage src="../img/splinterlands.png" alt="Splinterlands" placeholder="none" className=""/>
@@ -34,7 +34,7 @@ const Scholarships = () => (
                             </Link>
                         </div>
 
-                        <div className="column gridbox is-one-third has-text-centered has-text-warning  ">
+                        <div className="column gridbox has-text-centered has-text-warning">
                             <Link to ="/thetanarenascholarships" className="is-warning">
                                 <div className="verticalhelper">
                                     <StaticImage src="../img/thetanarena.png" alt="Thetan Arena" placeholder="none"/>
@@ -43,6 +43,7 @@ const Scholarships = () => (
                         </div>
 
                     </div>
+                </div>
                 </div>
     </Layout>
 );
