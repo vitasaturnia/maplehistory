@@ -30,7 +30,7 @@ function Index () {
     return(
 
     <Layout>
-        <div className="hero is-large thescreenisfull">
+        <div className="hero is-large">
             <div className="hero-body is-black">
                     <p className="title has-text-warning has-text-centered">
                     Welcome to Saturnian Network
@@ -47,7 +47,7 @@ function Index () {
                                     console.error(e);
                                 });
                             }}>
-                        <div className="columns is-invisible-desktop-only">
+                        <div className="columns is-invisible-desktop-">
                             <div className="container">
                                 <img src={metamask} className="herometaicon"/>
                             </div>

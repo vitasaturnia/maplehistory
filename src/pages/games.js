@@ -18,7 +18,7 @@ const Games = () => (
                 </div>
 
             <div className="fullscreen">
-                <div className="columns is-3">
+                <div className="columns is-desktop">
 
                     <div className="column gridbox">
                         <Link to ="/axiescholarships" className="is-warning">
@@ -50,6 +50,7 @@ const Games = () => (
         <div className="fullscreen">
 
                 <div className="columns">
+
                 <div className="column gridbox">
                     <div className="verticalhelper">
                         <StaticImage className="boximage" src="../img/crazydefenseheroes.jpeg" alt="Crazy Defense Heroes"/>

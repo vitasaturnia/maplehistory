@@ -16,9 +16,9 @@ const Scholarships = () => (
             </div>
 
                 <div className="fullscreen">
-                    <div className="columns is-3">
+                    <div className="columns is-desktop is-8">
 
-                        <div className="column gridbox has-text-centered">
+                        <div className="column gridbox">
                             <Link to ="/axiescholarships" className="is-warning">
                                 <div className="verticalhelper">
                                 <StaticImage className="boximage" src="../img/axieinfinity.png" alt="Axie Infinity" placeholder="none"/>
@@ -26,7 +26,7 @@ const Scholarships = () => (
                             </Link>
                         </div>
 
-                        <div className="column gridbox level has-text-centered">
+                        <div className="column gridbox">
                             <Link to ="/splinterlandscarddelegation" className="is-warning" >
                                 <div className="verticalhelper">
                                 <StaticImage src="../img/splinterlands.png" alt="Splinterlands" placeholder="none" className=""/>
@@ -34,7 +34,7 @@ const Scholarships = () => (
                             </Link>
                         </div>
 
-                        <div className="column gridbox has-text-centered has-text-warning">
+                        <div className="column gridbox">
                             <Link to ="/thetanarenascholarships" className="is-warning">
                                 <div className="verticalhelper">
                                     <StaticImage src="../img/thetanarena.png" alt="Thetan Arena" placeholder="none"/>
