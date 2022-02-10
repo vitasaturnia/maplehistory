@@ -7,7 +7,6 @@ import {
     faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 
-import {faEnvelope} from "@fortawesome/free-regular-svg-icons";
 
 const Community = () => (
   <Layout>
@@ -21,7 +20,7 @@ const Community = () => (
               </div>
 
       <div className="columns has-text-centered">
-          <div className="column has-text-centered">
+          <div className="column has-text-centered is-one-quarter-tablet-only">
               <div className="title">
                   <a href="https://discord.gg/DVc9VSAFZr">
                       <h1 className="has-text-warning ">Discord server</h1>

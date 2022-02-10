@@ -17,7 +17,7 @@ const Footer = class extends React.Component {
     return (
 
 
-      <footer className="footer has-background-black has-text-white-ter">
+      <footer className="footer has-background-black has-text-white-ter mt-6">
         <div className="has-text-centered has-background-black has-text-white-ter">
           <div className="has-background-black has-text-white-ter">
             <div style={{ maxWidth: "100vw" }} className="columns">

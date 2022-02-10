@@ -47,7 +47,7 @@ function Index () {
                                     console.error(e);
                                 });
                             }}>
-                        <div className="columns">
+                        <div className="columns is-invisible-desktop-only">
                             <div className="container">
                                 <img src={metamask} className="herometaicon"/>
                             </div>

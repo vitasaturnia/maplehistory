@@ -14,9 +14,9 @@ const Scholarships = () => (
                 <FontAwesomeIcon icon={faUserGraduate}/>
                 <h3 className="">Scholarship program</h3>
             </div>
-<div className="container thescreenisfull">
+
                 <div className="fullscreen">
-                    <div className="columns is-one-third is-two-thirds">
+                    <div className="columns is-3">
 
                         <div className="column gridbox has-text-centered">
                             <Link to ="/axiescholarships" className="is-warning">
@@ -43,7 +43,7 @@ const Scholarships = () => (
                         </div>
 
                     </div>
-                </div>
+
                 </div>
     </Layout>
 );
