@@ -10,10 +10,6 @@ import { useAuth } from "../hooks/useAuth";
 
 
 
-import {
-    faWrench
-} from '@fortawesome/free-solid-svg-icons';
-import {faEnvelope} from "@fortawesome/free-regular-svg-icons";
 
 
 function Index () {
@@ -36,18 +32,18 @@ function Index () {
                     Welcome to Saturnian Network
                 </p>
                 <div className="column has-text-warning has-text-centered">
-                    <button className="button is-small loginbutton is-warning has-text-link">
+                    <button className="button is-small loginbutton is-warning has-text-link ">
                         <p className="is-bold has-text-black">
                             Sign in
                         </p>
                     </button>
-                    <button className="button is-small loginbutton is-link has-text-warning"
+                    <button className="button is-small loginbutton is-link"
                             onClick={() => {
                                 return login().catch((e) => {
                                     console.error(e);
                                 });
                             }}>
-                        <div className="columns is-invisible-desktop-">
+                        <div className="columns ">
                             <div className="container">
                                 <img src={metamask} className="herometaicon"/>
                             </div>

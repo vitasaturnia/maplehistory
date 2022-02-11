@@ -41,7 +41,6 @@ $navbar-box-shadow-size: 0
 
 // Cards
 
-$card-media-margin: 0
 
 // Typography
 
@@ -55,6 +54,7 @@ $card-media-margin: 0
   border-radius: 10%
   box-shadow: 0px 2px 10px 3px $link , 0 -5px 10px -5px $warning
   margin: 0.75rem
+
 
 
 .boximage
@@ -273,6 +273,13 @@ footer.footer
   height: 4em!important
   border-radius: 15%!important
   margin-right: 0.3rem
+
+  
+@media only screen and (max-width: 600px) 
+  .loginbutton 
+    display: none
+  
+
 
 
 .navbar
