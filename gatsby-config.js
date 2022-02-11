@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: "Saturnian",
+    title: "Saturnian Network",
     description:
       "Saturnian Network",
   },
