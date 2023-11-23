@@ -69,17 +69,20 @@ const Navbar = class extends React.Component {
           >
             <div className="column">
             <div className="navbar-start has-text-centered">
-              <Link className="navbar-item" to="/dao">
-                Dao
+              <Link className="navbar-item" to="/about">
+                About
+              </Link>
+              <Link className="navbar-item" to="/wiki">
+                Wiki
+              </Link>
+              <Link className="navbar-item" to="/scholarships">
+                Guild
               </Link>
               <Link className="navbar-item" to="/community">
                 Community
               </Link>
-              <Link className="navbar-item" to="/scholarships">
-                Scholarships
-              </Link>
-              <Link className="navbar-item" to="/games">
-                Games
+              <Link className="navbar-item" to="/forum">
+                My History
               </Link>
               <Link className="navbar-item" to="/forum">
                 Forum

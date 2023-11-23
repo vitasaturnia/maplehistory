@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: "Saturnian Network",
+    title: "MapleStory History",
     description:
-      "Saturnian Network",
+      "Writing MapleStory History.",
   },
   plugins: [
     "gatsby-plugin-react-helmet",

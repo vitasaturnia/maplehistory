@@ -27,7 +27,7 @@ const Footer = class extends React.Component {
                   <ul className="menu-list">
                     <li>
                       <Link className="navbar-item has-text-warning" to="/dao">
-                        Dao
+                        About
                       </Link>
                     </li>
                     <li>
@@ -61,7 +61,7 @@ const Footer = class extends React.Component {
                     </li>
                     <li>
                       <Link className="navbar-item has-text-warning" to="/scholarships">
-                        Scholarships
+                        Wiki
                       </Link>
                     </li>
                     <li>
@@ -90,15 +90,10 @@ const Footer = class extends React.Component {
                 <a title="discord" href="https://discord.gg/TcfrdVkdH2">
                   <FontAwesomeIcon icon={faDiscord} className="socialiconfooter is-size-1-widescreen has-text-warning"/>
                 </a>
-                <a title="discord" href="https://ecency.com/created/1444">
-                  <FontAwesomeIcon icon={faHive} className="socialiconfooter has-text-warning is-size-1-widescreen"/>
-                </a>
                 <a title="facebook" href="https://www.facebook.com/Saturnian-107989921789037">
                   <FontAwesomeIcon icon={faFacebook} className="socialiconfooter has-text-warning is-size-1-widescreen"/>
                 </a>
-                  <a title="twitter" href="https://twitter.com/saturniandao">
-                    <FontAwesomeIcon icon={faTwitter} className="socialiconfooter has-text-warning is-size-1-widescreen"/>
-                </a>
+
 
 
               </div>
