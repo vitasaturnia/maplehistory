@@ -3,7 +3,7 @@ import { Link, navigate } from "gatsby";
 import logo from "../img/fenixlogo2.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { auth } from '../../firebase';
+import { auth } from '../../firebase'; // Ensure this path is correct
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 const Navbar = () => {
@@ -68,7 +68,7 @@ const Navbar = () => {
           <div id="navMenu" className={`navbar-menu ${active ? "is-active" : ""}`}>
             <div className="column">
               <div className="navbar-start has-text-centered">
-                {/* Other navbar items */}
+                {/* Place your navbar items here */}
               </div>
             </div>
             <div className="column">
