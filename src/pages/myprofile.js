@@ -1,76 +1,53 @@
-import React, { useState } from 'react';
-import Layout from "../components/Layout"
-import { doc, setDoc } from 'firebase/firestore';
-import { updateEmail, updatePassword } from "firebase/auth";
-import { db, auth } from '../../firebase'; //
+import React, { useState, useEffect } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db, auth } from '../../firebase';
 
-const MyProfile = () => {
-    const [username, setUsername] = useState('');
-    const [guildName, setGuildName] = useState('');
-    const [newEmail, setNewEmail] = useState('');
-    const [newPassword, setNewPassword] = useState('');
+const MyProfile
+
+
+    = () => {
+    const [profileData, setProfileData] = useState({ username: '', guildName: '' });
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
 
-    const handleProfileUpdate = async (e) => {
-        e.preventDefault();
-        try {
-            const userRef = doc(db, "users", auth.currentUser.uid);
-            await setDoc(userRef, { username, guildName }, { merge: true });
-            setSuccessMessage('Profile updated successfully.');
-        } catch (error) {
-            setError('Failed to update profile.');
-        }
-    };
+    useEffect(() => {
+        const fetchUserProfile = async () => {
+            try {
+                const userRef = doc(db, "users", auth.currentUser.uid);
+                const docSnap = await getDoc(userRef);
 
-    const handleEmailAndPasswordUpdate = async (e) => {
-        e.preventDefault();
-        try {
-            if (newEmail) {
-                await updateEmail(auth.currentUser, newEmail);
+                if (docSnap.exists()) {
+                    setProfileData(docSnap.data());
+                } else {
+                    setError('No profile data found.');
+                }
+            } catch (error) {
+                setError('Error fetching profile data.');
+            } finally {
+                setLoading(false);
             }
-            if (newPassword) {
-                await updatePassword(auth.currentUser, newPassword);
-            }
-            setSuccessMessage('Email and/or password updated successfully.');
-        } catch (error) {
-            setError('Failed to update email/password.');
-        }
-    };
+        };
+
+        fetchUserProfile();
+    }, []);
+
+    if (loading) {
+        return <div>Loading profile...</div>;
+    }
 
     return (
-        <Layout>
-            <section className="has-text-centered">
         <div>
-            <h1>My Profile</h1>
-            <form onSubmit={handleProfileUpdate}>
+            <h1>User Profile</h1>
+            {error ? (
+                <p className="error">{error}</p>
+            ) : (
                 <div>
-                    <label>Username:</label>
-                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    <p><strong>Username:</strong> {profileData.username}</p>
+                    <p><strong>Guild Name:</strong> {profileData.guildName}</p>
+                    {/* Additional profile information can be added here */}
                 </div>
-                <div>
-                    <label>Guild Name:</label>
-                    <input type="text" value={guildName} onChange={(e) => setGuildName(e.target.value)} />
-                </div>
-                <button type="submit">Update Profile</button>
-            </form>
-            <br/>
-            <form onSubmit={handleEmailAndPasswordUpdate}>
-                <div>
-                    <label>New Email:</label>
-                    <input type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} />
-                </div>
-                <div>
-                    <label>New Password:</label>
-                    <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-                </div>
-                <button type="submit">Update Email/Password</button>
-            </form>
-            {error && <p className="error">{error}</p>}
-            {successMessage && <p className="success">{successMessage}</p>}
+            )}
         </div>
-            </section>
-        </Layout>
     );
 };
 
