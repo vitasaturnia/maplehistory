@@ -1,13 +1,13 @@
 import React from 'react';
 import FirebaseAuthUI from '../components/FirebaseAuthUI'; // Adjust the path as needed
 
-const LoginPage = () => {
+const SignupPage = () => {
     return (
         <div>
-            <h1>Login</h1>
+            <h1>Sign Up</h1>
             <FirebaseAuthUI />
         </div>
     );
 };
 
-export default LoginPage;
+export default SignupPage;
