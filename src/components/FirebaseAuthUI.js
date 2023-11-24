@@ -1,9 +1,9 @@
-// FirebaseAuthUI.js
 import React, { useEffect } from 'react';
 import { getAuth } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
-import { AuthUI, startUI } from 'firebaseui';
+import * as firebaseui from 'firebaseui';
+import 'firebaseui/dist/firebaseui.css';
 
 const FirebaseAuthUI = () => {
     useEffect(() => {
@@ -21,26 +21,34 @@ const FirebaseAuthUI = () => {
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const db = getFirestore(app);
+        getFirestore(app); // Initialize Firestore if needed
 
         // Firebase UI configuration
         const uiConfig = {
             signInSuccessUrl: '/', // Redirect after sign-in
             signInOptions: [
-                {
-                    provider: auth.EmailAuthProvider.PROVIDER_ID,
-                },
-                // You can add other providers here
+                firebaseui.auth.EmailAuthProvider.PROVIDER_ID,
+                // You can add other providers here like Google, Facebook, etc.
             ],
-            // Configure other options as needed
+            // Additional configuration options as needed
         };
 
-        // Initialize Firebase UI
-        const ui = new AuthUI(auth);
-        startUI('#firebaseui-auth-container', uiConfig);
+        // Check if UI is already initialized to prevent duplicate instances
+        if (firebaseui.auth.AuthUI.getInstance()) {
+            const ui = firebaseui.auth.AuthUI.getInstance();
+            ui.start('#firebaseui-auth-container', uiConfig);
+        } else {
+            const ui = new firebaseui.auth.AuthUI(auth);
+            ui.start('#firebaseui-auth-container', uiConfig);
+        }
 
         // Cleanup UI on unmount
-        return () => ui.reset();
+        return () => {
+            const ui = firebaseui.auth.AuthUI.getInstance();
+            if (ui) {
+                ui.delete();
+            }
+        };
     }, []);
 
     return <div id="firebaseui-auth-container" />;
