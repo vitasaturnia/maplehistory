@@ -3,21 +3,17 @@ import netlifyIdentity from 'netlify-identity-widget';
 
 const LoginForm = () => {
     useEffect(() => {
-        // Open the login modal as soon as the component mounts
+        // Automatically open the Netlify Identity login form
         netlifyIdentity.open('login');
 
-        // Optional: Close the modal when the component unmounts
-        return () => netlifyIdentity.close();
+        // Optionally, add a cleanup function to close the widget
+        // when the component unmounts
+        return () => {
+            netlifyIdentity.close();
+        };
     }, []);
 
-    return (
-        <div className="container">
-            {/*
-                You can add additional content here if needed,
-                but the primary functionality will be handled by the Netlify modal
-            */}
-        </div>
-    );
+    return null; // No UI needed, as the widget handles the form
 };
 
 export default LoginForm;
