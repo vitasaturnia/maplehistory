@@ -15,7 +15,6 @@
     "gatsby-plugin-google-gtag": "^5.12.3",
     "gatsby-plugin-image": "^3.12.3",
     "gatsby-plugin-netlify": "^5.1.1",
-    "gatsby-plugin-netlify-cms": "^7.12.0",
     "gatsby-plugin-purgecss": "^6.2.1",
     "gatsby-plugin-react-helmet": "^6.12.0",
     "gatsby-plugin-sass": "^6.12.3",
