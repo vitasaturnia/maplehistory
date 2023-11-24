@@ -6,6 +6,8 @@ const SignupForm = ({ onSuccessfulSignup }) => {
     const [password, setPassword] = useState('');
 
     useEffect(() => {
+        netlifyIdentity.init();
+
         const handleSignupSuccess = (user) => {
             console.log('Signup successful for:', user);
             onSuccessfulSignup(); // Call the passed-in callback function
@@ -20,16 +22,7 @@ const SignupForm = ({ onSuccessfulSignup }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        netlifyIdentity.signup(email, password)
-            .then((user) => {
-                console.log('Signup submission successful:', user);
-                // Optionally call onSuccessfulSignup here for immediate feedback
-                // onSuccessfulSignup();
-            })
-            .catch((error) => {
-                console.error('Error during signup:', error);
-                // Handle signup error here
-            });
+        netlifyIdentity.open('signup');
     };
 
     return (
