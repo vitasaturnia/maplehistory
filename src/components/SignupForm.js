@@ -1,28 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import netlifyIdentity from 'netlify-identity-widget';
 
 const SignupForm = ({ onSuccessfulSignup }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    useEffect(() => {
-        netlifyIdentity.init();
-
-        const handleSignupSuccess = (user) => {
-            console.log('Signup successful for:', user);
-            onSuccessfulSignup(); // Call the passed-in callback function
-        };
-
-        netlifyIdentity.on('signup', handleSignupSuccess);
-
-        return () => {
-            netlifyIdentity.off('signup', handleSignupSuccess);
-        };
-    }, [onSuccessfulSignup]);
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        netlifyIdentity.open('signup');
+        netlifyIdentity.signup(email, password)
+            .then((user) => {
+                console.log('Signup submission successful:', user);
+                onSuccessfulSignup(); // Call the callback function on successful signup
+            })
+            .catch((error) => {
+                console.error('Error during signup:', error);
+                // Handle signup error here
+            });
     };
 
     return (
