@@ -1,5 +1,5 @@
 import React from 'react';
-import FirebaseAuthUI from '../components/FirebaseAuthUI'; // Adjust the path as needed
+import FirebaseAuthUI from '../components/FirebaseAuthUI'; //
 
 const SignupPage = () => {
     return (

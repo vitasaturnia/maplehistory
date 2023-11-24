@@ -1,28 +1,26 @@
 import React, { useEffect } from 'react';
 import * as firebaseui from 'firebaseui';
 import 'firebaseui/dist/firebaseui.css';
-import { auth } from '../../firebase';
+import { auth } from '../../firebase'; // Ensure this path is correct
+import { EmailAuthProvider } from 'firebase/auth';
 
 const FirebaseAuthUI = () => {
     useEffect(() => {
-        // Firebase UI configuration
         const uiConfig = {
-            signInSuccessUrl: '/', // Redirect after sign-in
+            signInSuccessUrl: '/',
             signInOptions: [
-                firebaseui.auth.EmailAuthProvider.PROVIDER_ID,
+                EmailAuthProvider.PROVIDER_ID, // Use Firebase Auth's EmailAuthProvider
                 // Add other providers here
             ],
             // Additional configuration options as needed
         };
 
-        // Check if UI is already initialized to prevent duplicate instances
         let ui = firebaseui.auth.AuthUI.getInstance();
         if (!ui) {
             ui = new firebaseui.auth.AuthUI(auth);
         }
         ui.start('#firebaseui-auth-container', uiConfig);
 
-        // Cleanup UI on unmount
         return () => {
             ui.delete();
         };

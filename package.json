@@ -14,6 +14,7 @@
     "firebase": "^10.6.0",
     "firebaseui": "^6.1.0",
     "gatsby": "^5.12.11",
+    "gatsby-plugin-firebase": "^0.2.0-beta.4",
     "gatsby-plugin-google-analytics": "^5.12.0",
     "gatsby-plugin-google-gtag": "^5.12.3",
     "gatsby-plugin-image": "^3.12.3",
