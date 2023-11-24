@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Layout from '../components/Layout';
 import LoginForm from '../components/LoginForm';
-import SignupForm from '../components/SignupForm'; // Import the SignupForm component
+import FirebaseAuthComponent from '../components/FirebaseAuthComponent'; // Import the FirebaseAuthComponent component
 
 const LoginPage = () => {
     const [showSignup, setShowSignup] = useState(false);
@@ -20,7 +20,7 @@ const LoginPage = () => {
                             <h3 className="subtitle is-italic has-text-centered has-text-warning" onClick={toggleForm} style={{ cursor: 'pointer' }}>
                                 Login
                             </h3>
-                            <SignupForm />
+                            <FirebaseAuthComponent />
                         </>
                     ) : (
                         <>
