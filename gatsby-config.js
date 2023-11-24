@@ -81,20 +81,6 @@ module.exports = {
             },
           },
           {
-            resolve: "gatsby-plugin-firebase",
-            options: {
-              credentials: {
-                apiKey: "AIzaSyCo72n2CJWf6WFGDs8jDGDyz07IM3wQZoM",
-                authDomain: "maplehistorymsh.firebaseapp.com",
-                projectId: "maplehistorymsh",
-                storageBucket: "maplehistorymsh.appspot.com",
-                messagingSenderId: "958498273176",
-                appId: "1:958498273176:web:fc15f641ea1db91de79ded",
-                measurementId: "G-BY6NLMDTPJ"
-              }
-            }
-          }
-          {
             resolve: `gatsby-plugin-google-gtag`,
             options: {
               // You can add multiple tracking ids and a pageview event will be fired for all of them.
