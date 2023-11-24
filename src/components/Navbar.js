@@ -68,7 +68,24 @@ const Navbar = () => {
           <div id="navMenu" className={`navbar-menu ${active ? "is-active" : ""}`}>
             <div className="column">
               <div className="navbar-start has-text-centered">
-                {/* Place your navbar items here */}
+                <Link className="navbar-item" to="/about">
+                  About
+                </Link>
+                <Link className="navbar-item" to="/wiki">
+                  Wiki
+                </Link>
+                <Link className="navbar-item" to="/scholarships">
+                  Guild
+                </Link>
+                <Link className="navbar-item" to="/community">
+                  Community
+                </Link>
+                <Link className="navbar-item" to="/forum">
+                  My History
+                </Link>
+                <Link className="navbar-item" to="/forum">
+                  Forum
+                </Link>
               </div>
             </div>
             <div className="column">
