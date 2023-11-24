@@ -5,7 +5,13 @@ import { getAuth } from "firebase/auth"; // Importing Firebase Auth
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    // ... your firebase config
+    apiKey: "AIzaSyCo72n2CJWf6WFGDs8jDGDyz07IM3wQZoM",
+    authDomain: "maplehistorymsh.firebaseapp.com",
+    projectId: "maplehistorymsh",
+    storageBucket: "maplehistorymsh.appspot.com",
+    messagingSenderId: "958498273176",
+    appId: "1:958498273176:web:fc15f641ea1db91de79ded",
+    measurementId: "G-BY6NLMDTPJ"
 };
 
 // Initialize Firebase
@@ -28,4 +34,4 @@ const db = getFirestore(app);
 // Initialize Firebase Auth
 const auth = getAuth(app); // Initializing Firebase Auth
 
-export { db, app, analytics, auth }; // Exporting auth
+export { db, app, analytics, auth }; // Exporting Firestore, Firebase App, Analytics, and Auth
