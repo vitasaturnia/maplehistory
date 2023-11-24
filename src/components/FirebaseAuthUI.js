@@ -9,7 +9,10 @@ const FirebaseAuthUI = () => {
         const uiConfig = {
             signInSuccessUrl: '/',
             signInOptions: [
-                EmailAuthProvider.PROVIDER_ID, // Use Firebase Auth's EmailAuthProvider
+                {
+                    provider: EmailAuthProvider.PROVIDER_ID,
+                    requireDisplayName: false  // Set to false to not require display names
+                },
                 // Add other providers here
             ],
             // Additional configuration options as needed
