@@ -3,6 +3,9 @@ import { Link } from "gatsby";
 import logo from "../img/fenixlogo2.png";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faDiscord} from "@fortawesome/free-brands-svg-icons";
+import {faUser} from "@fortawesome/free-solid-svg-icons";
+import netlifyIdentity from 'netlify-identity-widget';
+
 
 
 
@@ -91,6 +94,13 @@ const Navbar = class extends React.Component {
             </div>
             <div className="column">
             <div className="navbar-end has-text-centered">
+              <a>
+              <Link to="/myprofile">
+                <span className="icon">
+                  <FontAwesomeIcon icon={faUser} className="socialiconfooter is-size-5 is-size-1-widescreen has-text-warning"/>
+                </span>
+              </Link>
+              </a>
               <a
                 className="navbar-item"
                 href="https://discord.gg/TcfrdVkdH2"
