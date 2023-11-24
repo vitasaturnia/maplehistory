@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import netlifyIdentity from 'netlify-identity-widget';
 
 const LoginForm = () => {
-    const handleLogin = () => {
+    useEffect(() => {
+        // Open the login modal as soon as the component mounts
         netlifyIdentity.open('login');
-    };
+
+        // Optional: Close the modal when the component unmounts
+        return () => netlifyIdentity.close();
+    }, []);
 
     return (
         <div className="container">
-            <div className="columns is-centered">
-                <div className="column is-half">
-                    <button onClick={handleLogin} className="button is-success">
-                        Login
-                    </button>
-                </div>
-            </div>
+            {/*
+                You can add additional content here if needed,
+                but the primary functionality will be handled by the Netlify modal
+            */}
         </div>
     );
 };
