@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Layout from "../components/Layout"
 import { doc, setDoc } from 'firebase/firestore';
 import { updateEmail, updatePassword } from "firebase/auth";
 import { db, auth } from '../../firebase'; //
@@ -38,6 +39,8 @@ const MyProfile = () => {
     };
 
     return (
+        <Layout>
+            <section className="has-text-centered">
         <div>
             <h1>My Profile</h1>
             <form onSubmit={handleProfileUpdate}>
@@ -51,6 +54,7 @@ const MyProfile = () => {
                 </div>
                 <button type="submit">Update Profile</button>
             </form>
+            <br/>
             <form onSubmit={handleEmailAndPasswordUpdate}>
                 <div>
                     <label>New Email:</label>
@@ -65,6 +69,8 @@ const MyProfile = () => {
             {error && <p className="error">{error}</p>}
             {successMessage && <p className="success">{successMessage}</p>}
         </div>
+            </section>
+        </Layout>
     );
 };
 
