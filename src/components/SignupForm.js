@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import netlifyIdentity from 'netlify-identity-widget';
 
-const SignupForm = () => {
+const SignupForm = ({ onSuccessfulSignup }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    useEffect(() => {
+        const handleSignupSuccess = (user) => {
+            console.log('Signup successful for:', user);
+            onSuccessfulSignup(); // Call the passed-in callback function
+        };
+
+        netlifyIdentity.on('signup', handleSignupSuccess);
+
+        return () => {
+            // Clean up the event listener when the component unmounts
+            netlifyIdentity.off('signup', handleSignupSuccess);
+        };
+    }, [onSuccessfulSignup]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        netlifyIdentity.open('signup'); // This will open the Netlify Identity signup modal
+        // Perform signup using Netlify Identity
+        netlifyIdentity.signup(email, password);
     };
 
     return (
