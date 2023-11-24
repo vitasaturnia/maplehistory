@@ -7,7 +7,15 @@ const LoginForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        netlifyIdentity.open('login'); // This will open the Netlify Identity login modal
+        netlifyIdentity.login(email, password)
+            .then((user) => {
+                console.log('Login successful:', user);
+                // Redirect or perform further actions after successful login
+            })
+            .catch((error) => {
+                console.error('Error during login:', error);
+                // Handle login error here
+            });
     };
 
     return (

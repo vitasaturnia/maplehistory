@@ -14,15 +14,22 @@ const SignupForm = ({ onSuccessfulSignup }) => {
         netlifyIdentity.on('signup', handleSignupSuccess);
 
         return () => {
-            // Clean up the event listener when the component unmounts
             netlifyIdentity.off('signup', handleSignupSuccess);
         };
     }, [onSuccessfulSignup]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Perform signup using Netlify Identity
-        netlifyIdentity.signup(email, password);
+        netlifyIdentity.signup(email, password)
+            .then((user) => {
+                console.log('Signup submission successful:', user);
+                // Optionally call onSuccessfulSignup here for immediate feedback
+                // onSuccessfulSignup();
+            })
+            .catch((error) => {
+                console.error('Error during signup:', error);
+                // Handle signup error here
+            });
     };
 
     return (
