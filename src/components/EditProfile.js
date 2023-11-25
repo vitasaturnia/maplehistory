@@ -14,6 +14,8 @@ const EditProfile = () => {
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [isIngameUsernameSet, setIsIngameUsernameSet] = useState(false); // Track whether the ingame username is already set
+    const [isGuildSet, setIsGuildSet] = useState(false); // Track whether the guild is already set
+    const [isYearJoinedSet, setIsYearJoinedSet] = useState(false); // Track whether the year joined is already set
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -33,6 +35,16 @@ const EditProfile = () => {
                             // Check if the ingame username is already set
                             if (profileData.ingameUsername) {
                                 setIsIngameUsernameSet(true);
+                            }
+
+                            // Check if the guild is already set
+                            if (profileData.guild) {
+                                setIsGuildSet(true);
+                            }
+
+                            // Check if the year joined is already set
+                            if (profileData.yearJoined) {
+                                setIsYearJoinedSet(true);
                             }
                         }
                     })
@@ -92,24 +104,44 @@ const EditProfile = () => {
         }
     };
 
-    const handleUpdateGuildAndYearJoined = () => {
+    const handleUpdateGuild = () => {
         if (user) {
-            // Update the guild and year joined in Firestore
+            // Update the guild in Firestore
             const userId = user.uid;
             const userDocRef = doc(db, 'users', userId);
 
-            setDoc(userDocRef, { guild: newGuild, year_joined: newYearJoined }, { merge: true })
+            setDoc(userDocRef, { guild: newGuild }, { merge: true })
                 .then(() => {
-                    setSuccessMessage('Guild and Year Joined updated successfully.');
+                    setSuccessMessage('Guild updated successfully.');
                     // Update the local profile data if needed
                     setProfile((prevProfile) => ({
                         ...prevProfile,
                         guild: newGuild,
-                        year_joined: newYearJoined,
                     }));
                 })
                 .catch((error) => {
-                    setErrorMessage('Error updating Guild and Year Joined: ' + error.message);
+                    setErrorMessage('Error updating Guild: ' + error.message);
+                });
+        }
+    };
+
+    const handleUpdateYearJoined = () => {
+        if (user) {
+            // Update the year joined in Firestore
+            const userId = user.uid;
+            const userDocRef = doc(db, 'users', userId);
+
+            setDoc(userDocRef, { yearJoined: newYearJoined }, { merge: true })
+                .then(() => {
+                    setSuccessMessage('Year Joined updated successfully.');
+                    // Update the local profile data if needed
+                    setProfile((prevProfile) => ({
+                        ...prevProfile,
+                        yearJoined: newYearJoined,
+                    }));
+                })
+                .catch((error) => {
+                    setErrorMessage('Error updating Year Joined: ' + error.message);
                 });
         }
     };
@@ -168,6 +200,13 @@ const EditProfile = () => {
                         onChange={(e) => setNewGuild(e.target.value)}
                     />
                     <br />
+                    <div>
+                        {isGuildSet ? (
+                            <button onClick={handleUpdateGuild} className="button is-warning is-outlined">Update Guild</button>
+                        ) : (
+                            <button onClick={handleUpdateGuild} className="button is-warning is-outlined">Set Guild</button>
+                        )}
+                    </div>
                 </div>
                 <div>
                     <h3 className="has-text-weight-bold">Year Joined</h3>
@@ -178,7 +217,11 @@ const EditProfile = () => {
                     />
                     <br />
                     <div>
-                        <button onClick={handleUpdateGuildAndYearJoined} className="button is-warning is-outlined">Update Guild and Year Joined</button>
+                        {isYearJoinedSet ? (
+                            <button onClick={handleUpdateYearJoined} className="button is-warning is-outlined">Update Year Joined</button>
+                        ) : (
+                            <button onClick={handleUpdateYearJoined} className="button is-warning is-outlined">Set Year Joined</button>
+                        )}
                     </div>
                 </div>
             </div>
