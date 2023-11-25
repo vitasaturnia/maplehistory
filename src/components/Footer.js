@@ -26,7 +26,7 @@ const Footer = class extends React.Component {
                 <div className="column is-half has-text-centered">
                   <ul className="menu-list">
                     <li>
-                      <Link className="navbar-item has-text-warning" to="/dao">
+                      <Link className="navbar-item has-text-warning" to="/about">
                         About
                       </Link>
                     </li>
@@ -36,12 +36,12 @@ const Footer = class extends React.Component {
                       </Link>
                     </li>
                     <li>
-                      <Link className="navbar-item has-text-warning" to="/news">
+                      <Link className="navbar-item has-text-warning" to="/wiki">
                         Wiki
                       </Link>
                     </li>
                     <li>
-                      <Link className="navbar-item has-text-warning" to="/shop">
+                      <Link className="navbar-item has-text-warning" to="/myhistory">
                         My History
                       </Link>
                     </li>
@@ -55,17 +55,17 @@ const Footer = class extends React.Component {
                       </Link>
                     </li>
                     <li>
-                      <Link className="navbar-item has-text-warning" to="/forum">
+                      <Link className="navbar-item has-text-warning" to="/guild">
                         Guild
                       </Link>
                     </li>
                     <li>
-                      <Link className="navbar-item has-text-warning" to="/scholarships">
+                      <Link className="navbar-item has-text-warning" to="/forum">
                         Forum
                       </Link>
                     </li>
                     <li>
-                      <Link className="navbar-item has-text-warning" to="/games">
+                      <Link className="navbar-item has-text-warning" to="/news">
                         News
                       </Link>
                     </li>
