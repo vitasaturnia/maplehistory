@@ -14,7 +14,7 @@ const Newsletter = () => (
                     Want to stay up to date?
                 </h1>
                 <div className="has-text-warning">
-                    <input type="text" placeholder="Email"/>
+                    <input className="newsletterinput" type="text" placeholder="Email"/>
                     <FontAwesomeIcon className="orangeicon" icon={faEnvelope} />
                 </div>
         </div>

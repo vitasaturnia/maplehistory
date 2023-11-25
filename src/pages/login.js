@@ -1,12 +1,17 @@
 import React from 'react';
-import FirebaseAuthUI from '../components/FirebaseAuthUI'; // Adjust the path as needed
+import Login from '../components/Login';
+import Layout from "../components/Layout";
 
 const LoginPage = () => {
     return (
-        <div>
+        <Layout>
+            <section className="section is-full-height">
+            <div className="container">
             <h1>Login</h1>
-            <FirebaseAuthUI />
+            <Login />
         </div>
+        </section>
+        </Layout>
     );
 };
 
