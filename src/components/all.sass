@@ -313,6 +313,12 @@ footer.footer
   border-radius: 15%!important
   margin-right: 0.3rem
 
+.buttons
+  display: flex!important
+  justify-content: center!important
+  margin-top: 10px!important
+
+
   
 @media only screen and (max-width: 600px) 
   .loginbutton 
@@ -457,7 +463,24 @@ newsletter
   max-height: 96px
   max-width: 96px
 
+/* custom-navbar.css
 
+/* Styles for the mobile dropdown
+
+.mobile-dropdown
+  position: absolute
+  top: 100%
+  right: 0
+  background-color: #fff
+  border: 1px solid #ccc
+  border-radius: 4px
+  z-index: 1
+  display: none
+
+  &.is-active
+    display: block
+
+/* Styles for the mobile dropdown toggle button
 
 
 @import "~bulma"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, navigate } from "gatsby";
 import logo from "../img/fenixlogo2.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +9,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 const Navbar = () => {
   const [active, setActive] = useState(false);
   const [user, setUser] = useState(null);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -20,6 +21,12 @@ const Navbar = () => {
 
   const toggleHamburger = () => {
     setActive(!active);
+  };
+
+  const toggleDropdown = () => {
+    if (dropdownRef.current) {
+      dropdownRef.current.classList.toggle('is-active');
+    }
   };
 
   const handleProfileClick = () => {
@@ -39,11 +46,7 @@ const Navbar = () => {
   };
 
   return (
-      <nav
-          className="navbar is-transparent is-desktop"
-          role="navigation"
-          aria-label="main-navigation"
-      >
+      <nav className="navbar is-transparent is-desktop" role="navigation" aria-label="main-navigation">
         <div className="container">
           <div className="column">
             <div className="navbar-brand">
@@ -90,14 +93,26 @@ const Navbar = () => {
             </div>
             <div className="column">
               <div className="navbar-end has-text-centered">
-                <a className="navbar-item" onClick={handleProfileClick}>
-                  <FontAwesomeIcon icon={faUser} className="is-size-5 has-text-warning" />
-                </a>
-                {user && (
-                    <a className="navbar-item" onClick={handleSignOut}>
-                      Sign Out
-                    </a>
-                )}
+                {/* Dropdown */}
+                <div className="navbar-item has-dropdown is-hoverable" ref={dropdownRef}>
+                  <a className="navbar-link" onClick={toggleDropdown}>
+                    <FontAwesomeIcon icon={faUser} className="is-size-5 has-text-warning" />
+                  </a>
+                  <div className="navbar-dropdown" style={{ backgroundColor: 'black' }}>
+                    <Link to="/myprofile" className="navbar-item">
+                      My Profile
+                    </Link>
+                    <Link to="/editprofile" className="navbar-item">
+                      Edit Profile
+                    </Link>
+                    {user && (
+                        <a className="navbar-item" onClick={handleSignOut}>
+                          Logout
+                        </a>
+                    )}
+                  </div>
+                </div>
+                {/* End Dropdown */}
               </div>
             </div>
           </div>

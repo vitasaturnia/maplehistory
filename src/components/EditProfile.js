@@ -7,7 +7,7 @@ const EditProfile = () => {
     const [user, setUser] = useState(null);
     const [profile, setProfile] = useState(null);
     const [username, setUsername] = useState('');
-    const [newIngameUsername, setNewIngameUsername] = useState('');
+    const [newIGN, setNewIGN] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [newEmail, setNewEmail] = useState('');
     const [newGuild, setNewGuild] = useState('');
@@ -15,9 +15,6 @@ const EditProfile = () => {
     const [newProfilePicture, setNewProfilePicture] = useState(null);
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [isIngameUsernameSet, setIsIngameUsernameSet] = useState(false);
-    const [isGuildSet, setIsGuildSet] = useState(false);
-    const [isYearJoinedSet, setIsYearJoinedSet] = useState(false);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -32,18 +29,17 @@ const EditProfile = () => {
                         if (userDocSnapshot.exists()) {
                             const profileData = userDocSnapshot.data();
                             setProfile(profileData);
-                            setUsername(profileData.username || '');
 
+                            if (profileData.username) {
+                                setUsername(profileData.username);
+                            }
                             if (profileData.ingameUsername) {
-                                setIsIngameUsernameSet(true);
-                                setNewIngameUsername(profileData.ingameUsername);
+                                setNewIGN(profileData.ingameUsername);
                             }
                             if (profileData.guild) {
-                                setIsGuildSet(true);
                                 setNewGuild(profileData.guild);
                             }
                             if (profileData.yearJoined) {
-                                setIsYearJoinedSet(true);
                                 setNewYearJoined(profileData.yearJoined);
                             }
                         }
@@ -54,36 +50,52 @@ const EditProfile = () => {
             }
         });
 
-        return () => unsubscribe(); // Cleanup subscription on unmount
+        return () => unsubscribe();
     }, []);
 
-    const handleUpdateIngameUsername = () => {
+    const handleUpdateUsername = () => {
         if (user) {
             const userId = user.uid;
             const userDocRef = doc(db, 'users', userId);
 
-            setDoc(userDocRef, { ingameUsername: newIngameUsername }, { merge: true })
+            setDoc(userDocRef, { username: username }, { merge: true })
                 .then(() => {
-                    setSuccessMessage('Ingame Username updated successfully.');
-                    setIsIngameUsernameSet(true);
-                    setProfile((prevProfile) => ({
-                        ...prevProfile,
-                        ingameUsername: newIngameUsername,
-                    }));
+                    setSuccessMessage('Username updated successfully.');
                 })
                 .catch((error) => {
-                    setErrorMessage('Error updating Ingame Username: ' + error.message);
+                    setErrorMessage('Error updating username: ' + error.message);
                 });
         }
     };
 
-    const handleUseIngameUsername = () => {
-        if (profile && profile.ingameUsername) {
-            setUsername(profile.ingameUsername);
-            // Update the username on the server here if necessary
-            setSuccessMessage('Username set to Ingame Username.');
-        } else {
-            setErrorMessage('You did not set IGN yet.');
+    const handleUseIGN = () => {
+        if (user) {
+            const userId = user.uid;
+            const userDocRef = doc(db, 'users', userId);
+
+            setDoc(userDocRef, { username: newIGN }, { merge: true })
+                .then(() => {
+                    setUsername(newIGN);
+                    setSuccessMessage('Username updated to IGN successfully.');
+                })
+                .catch((error) => {
+                    setErrorMessage('Error updating username to IGN: ' + error.message);
+                });
+        }
+    };
+
+    const handleUpdateIGN = () => {
+        if (user) {
+            const userId = user.uid;
+            const userDocRef = doc(db, 'users', userId);
+
+            setDoc(userDocRef, { ingameUsername: newIGN }, { merge: true })
+                .then(() => {
+                    setSuccessMessage('IGN updated successfully.');
+                })
+                .catch((error) => {
+                    setErrorMessage('Error updating IGN: ' + error.message);
+                });
         }
     };
 
@@ -119,11 +131,6 @@ const EditProfile = () => {
             setDoc(userDocRef, { guild: newGuild }, { merge: true })
                 .then(() => {
                     setSuccessMessage('Guild updated successfully.');
-                    setIsGuildSet(true);
-                    setProfile((prevProfile) => ({
-                        ...prevProfile,
-                        guild: newGuild,
-                    }));
                 })
                 .catch((error) => {
                     setErrorMessage('Error updating Guild: ' + error.message);
@@ -139,11 +146,6 @@ const EditProfile = () => {
             setDoc(userDocRef, { yearJoined: newYearJoined }, { merge: true })
                 .then(() => {
                     setSuccessMessage('Year Joined updated successfully.');
-                    setIsYearJoinedSet(true);
-                    setProfile((prevProfile) => ({
-                        ...prevProfile,
-                        yearJoined: newYearJoined,
-                    }));
                 })
                 .catch((error) => {
                     setErrorMessage('Error updating Year Joined: ' + error.message);
@@ -164,40 +166,17 @@ const EditProfile = () => {
                 {successMessage && <p className="success-message">{successMessage}</p>}
                 {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-                <div>
-                    <h3 className="has-text-weight-bold">Profile Picture</h3>
-                    <input
-                        type="file"
-                        onChange={(e) => setNewProfilePicture(e.target.files[0])}
-                    />
-                    <div>
-                        <button onClick={handleUpdateProfilePicture} className="button is-warning is-outlined">Update Profile Picture</button>
-                    </div>
-                </div>
-
-                <div>
+                <div className="has-text-centered">
                     <h3 className="has-text-weight-bold">Username</h3>
                     <input
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                     />
-
-                    <div>
-                        <h3 className="has-text-weight-bold">Username</h3>
-                        <input
-                            type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                        <div className="buttons">
-                            <button onClick={handleUpdateIngameUsername} className="button is-warning is-outlined">
-                                {isIngameUsernameSet ? "Change Username" : "Set Username"}
-                            </button>
-                            <button onClick={handleUseIngameUsername} className="button is-warning is-outlined">Use Ingame Username</button>
-                        </div>
+                    <div className="buttons">
+                        <button onClick={handleUpdateUsername} className="button is-warning is-outlined">Change Username</button>
+                        <button onClick={handleUseIGN} className="button is-warning is-outlined">Use IGN</button>
                     </div>
-
                 </div>
 
                 <div>
@@ -223,18 +202,19 @@ const EditProfile = () => {
                         <button onClick={handleUpdateEmail} className="button is-warning is-outlined">Update Email Address</button>
                     </div>
                 </div>
+            </div>
+            <div className="section has-text-centered">
+                <h3 className="subtitle has-text-warning has-text-weight-bold">Change Profile</h3>
 
                 <div>
-                    <h3 className="has-text-weight-bold">Ingame Username</h3>
+                    <h3 className="has-text-weight-bold">IGN</h3>
                     <input
                         type="text"
-                        value={newIngameUsername}
-                        onChange={(e) => setNewIngameUsername(e.target.value)}
+                        value={newIGN}
+                        onChange={(e) => setNewIGN(e.target.value)}
                     />
                     <div>
-                        <button onClick={handleUpdateIngameUsername} className="button is-warning is-outlined">
-                            {isIngameUsernameSet ? "Change Ingame Username" : "Set Ingame Username"}
-                        </button>
+                        <button onClick={handleUpdateIGN} className="button is-warning is-outlined">Change IGN</button>
                     </div>
                 </div>
 
@@ -246,9 +226,7 @@ const EditProfile = () => {
                         onChange={(e) => setNewGuild(e.target.value)}
                     />
                     <div>
-                        <button onClick={handleUpdateGuild} className="button is-warning is-outlined">
-                            {isGuildSet ? "Update Guild" : "Set Guild"}
-                        </button>
+                        <button onClick={handleUpdateGuild} className="button is-warning is-outlined">Update Guild</button>
                     </div>
                 </div>
 
@@ -260,16 +238,12 @@ const EditProfile = () => {
                         onChange={(e) => setNewYearJoined(e.target.value)}
                     />
                     <div>
-                        <button onClick={handleUpdateYearJoined} className="button is-warning is-outlined">
-                            {isYearJoinedSet ? "Update Year Joined" : "Set Year Joined"}
-                        </button>
+                        <button onClick={handleUpdateYearJoined} className="button is-warning is-outlined">Update Year Joined</button>
                     </div>
                 </div>
-
             </div>
         </div>
     );
-
 };
 
 export default EditProfile;
