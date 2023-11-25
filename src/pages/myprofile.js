@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../../firebase';
 
-const MyProfile
-
-
-    = () => {
+const MyProfile = () => {
     const [profileData, setProfileData] = useState({ username: '', guildName: '' });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -13,15 +10,21 @@ const MyProfile
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const userRef = doc(db, "users", auth.currentUser.uid);
-                const docSnap = await getDoc(userRef);
+                // Check if user is authenticated
+                if (auth.currentUser) {
+                    const userRef = doc(db, "users", auth.currentUser.uid);
+                    const docSnap = await getDoc(userRef);
 
-                if (docSnap.exists()) {
-                    setProfileData(docSnap.data());
+                    if (docSnap.exists()) {
+                        setProfileData(docSnap.data());
+                    } else {
+                        setError('No profile data found.');
+                    }
                 } else {
-                    setError('No profile data found.');
+                    setError('User not authenticated.');
                 }
             } catch (error) {
+                console.error('Error fetching profile data:', error);
                 setError('Error fetching profile data.');
             } finally {
                 setLoading(false);
