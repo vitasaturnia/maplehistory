@@ -14,14 +14,17 @@ const Profile = () => {
                 // If the user is authenticated, fetch their profile data from Firestore
                 const userId = currentUser.uid;
 
-                db.collection('userProfiles')
-                    .where('userId', '==', userId)
+                db.collection('users')
+                    .doc(userId) // Use the user's UID as the document ID
                     .get()
-                    .then((querySnapshot) => {
-                        if (!querySnapshot.empty) {
+                    .then((doc) => {
+                        if (doc.exists) {
                             // Assuming there's only one profile per user
-                            const profileData = querySnapshot.docs[0].data();
+                            const profileData = doc.data();
                             setProfile(profileData);
+                        } else {
+                            // If the profile document doesn't exist, set profile to null
+                            setProfile(null);
                         }
                     })
                     .catch((error) => {
@@ -37,15 +40,21 @@ const Profile = () => {
     }, []);
 
     return (
-        <div>
+        <div className="section has-text-warning">
             {user ? (
                 <div>
                     <h2>Your Profile</h2>
                     {profile ? (
                         <div>
-                            <p><strong>Ingame Username:</strong> {profile.username}</p>
-                            <p><strong>Guild:</strong> {profile.guild}</p>
-                            <p><strong>Join Date:</strong> {profile.joinDate}</p>
+                            {profile.username && (
+                                <p><strong>Username:</strong> {profile.username}</p>
+                            )}
+                            {profile.guild && (
+                                <p><strong>Guild:</strong> {profile.guild}</p>
+                            )}
+                            {profile.year_joined && (
+                                <p><strong>Year Joined:</strong> {profile.year_joined}</p>
+                            )}
                             {/* Add more profile fields as needed */}
                         </div>
                     ) : (
