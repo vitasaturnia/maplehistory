@@ -19,7 +19,7 @@ const EditProfile = () => {
 
             if (currentUser) {
                 // If the user is authenticated, fetch their profile data from Firestore
-                const userId = user.uid; // Get the UID of the authenticated user
+                const userId = currentUser.uid; // Get the UID of the authenticated user
                 const userDocRef = doc(db, 'users', userId); // Use the UID as the document name
 
                 getDoc(userDocRef)
