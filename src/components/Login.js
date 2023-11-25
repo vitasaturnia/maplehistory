@@ -12,8 +12,13 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        if (!email || !password) {
-            setError('Please enter both email and password.');
+        if (!isValidEmail(email)) {
+            setError('Please enter a valid email address.');
+            return;
+        }
+
+        if (!password) {
+            setError('Please enter your password.');
             return;
         }
 
@@ -30,8 +35,6 @@ const Login = () => {
                 setError('Wrong password. Please try again.');
             } else if (error.code === 'auth/user-not-found') {
                 setError('User not found.');
-            } else if (error.code === 'auth/invalid-email') {
-                setError('Please enter a valid email address.');
             } else {
                 setError('An error occurred while logging in. Please try again later.');
             }
@@ -61,6 +64,12 @@ const Login = () => {
                 setError('Password reset failed. Please check the email address.');
             }
         }
+    };
+
+    // Function to validate email format
+    const isValidEmail = (email) => {
+        const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+        return emailRegex.test(email);
     };
 
     return (

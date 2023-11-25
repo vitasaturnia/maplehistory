@@ -49,24 +49,33 @@ export default function FeedGenerator() {
 
         let postsQuery = query(collection(db, 'posts'), orderBy('timestamp', 'desc'), limit(POSTS_PER_PAGE));
         if (lastVisible) {
-            postsQuery = query(collection(db, 'posts'), orderBy('timestamp', 'desc'), startAfter(lastVisible), limit(POSTS_PER_PAGE));
+            postsQuery = query(
+                collection(db, 'posts'),
+                orderBy('timestamp', 'desc'),
+                startAfter(lastVisible.timestamp, lastVisible.id),
+                limit(POSTS_PER_PAGE)
+            );
         }
 
         const unsubscribe = onSnapshot(postsQuery, (snapshot) => {
-            const newPosts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            setPosts(prev => [...prev, ...newPosts]);
+            const newPosts = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+
+            setPosts((prev) => {
+                // Filter out posts with duplicate IDs to avoid rendering them again
+                const uniqueNewPosts = newPosts.filter((newPost) => !prev.some((prevPost) => prevPost.id === newPost.id));
+                return [...prev, ...uniqueNewPosts];
+            });
+
             setLastVisible(snapshot.docs[snapshot.docs.length - 1]);
             setHasMore(newPosts.length === POSTS_PER_PAGE);
             setLoading(false);
         });
 
         return () => unsubscribe();
-    }, [lastVisible, loading, posts]);
-
-    const handleScroll = useCallback(() => {
-        if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight - 100 || loading) return;
-        fetchPosts();
-    }, [fetchPosts, loading]);
+    }, [lastVisible, loading]);
 
     useEffect(() => {
         fetchPosts();
@@ -77,26 +86,25 @@ export default function FeedGenerator() {
         };
     }, [fetchPosts]);
 
-    const debouncedHandleScroll = debounce(handleScroll, 100);
+    const debouncedHandleScroll = debounce(() => {
+        if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight - 100 || loading) return;
+        fetchPosts();
+    }, 100);
 
     return (
         <div className="feed-container minheight100">
             {posts.map(post => (
-                <React.Fragment key={post.id}>
-                    <div className="post-card">
-                        <div className="post-content">
-                            <h3 className="post-title">{post.content}</h3>
-                            <div className="like-icons">
-                                <FontAwesomeIcon icon={faHeart} className="icon" />
-                            </div>
-                            <p className="post-meta">
-                                Created by {post.userId || 'Unknown User'} on {new Date(post.timestamp.seconds * 1000).toLocaleString()}
-                            </p>
+                <div className="post-card" key={post.id}>
+                    <div className="post-content">
+                        <h3 className="post-title">{post.content}</h3>
+                        <div className="like-icons">
+                            <FontAwesomeIcon icon={faHeart} className="icon" onClick={() => likePost(post.id)} />
                         </div>
+                        <p className="post-meta">
+                            Created by {post.username ? post.username : 'Unknown User'} on {new Date(post.timestamp.seconds * 1000).toLocaleString()}
+                        </p>
                     </div>
-                    <p className="is-italic has-text-warning">Read More</p>
-                    <button onClick={() => likePost(post.id)}>Like</button>
-                </React.Fragment>
+                </div>
             ))}
             {loading && <div className="loading is-italic as-text-warning">Loading more posts...</div>}
             {!hasMore && (

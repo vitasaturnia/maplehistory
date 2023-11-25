@@ -10,11 +10,11 @@ const MyProfilePage = () => {
                 <div className="centeredcontainer">
 
             <Profile /> {/* Render the Profile component */}
-            <section className="section has-text-centered">
+            <div className="div has-text-centered">
                 <Link to="/newpost">
-                <button className="button is-warning is-outliend">New post</button>
+                <button className="button is-warning is-outlined">New post</button>
                 </Link>
-            </section>
+            </div>
                 </div>
             </section>
 
