@@ -1,131 +1,89 @@
-import React, { useState, useEffect } from 'react';
-import { auth, db } from '../../firebase'; // Import your Firebase configuration
-import { onAuthStateChanged, updateDoc, doc, getDoc, updatePassword } from 'firebase/firestore'; // Import Firestore functions
-import { Link } from 'gatsby';
+import React, { useState } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { auth } from '../../firebase'; // Ensure the path is correct
+import { Link, navigate } from 'gatsby';
 
-const EditProfile = () => {
-    const [user, setUser] = useState(null);
-    const [profile, setProfile] = useState(null);
-    const [newUsername, setNewUsername] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+const Login = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
+    const handleLogin = async (e) => {
+        e.preventDefault();
 
-            if (currentUser) {
-                // If the user is authenticated, fetch their profile data from Firestore
-                const userId = currentUser.uid;
-                const userDocRef = doc(db, 'users', userId);
+        if (!email || !password) {
+            setError('Please enter both email and password.');
+            return;
+        }
 
-                // Retrieve the document data
-                getDoc(userDocRef)
-                    .then((userDocSnapshot) => {
-                        if (userDocSnapshot.exists()) {
-                            const profileData = userDocSnapshot.data();
-                            setProfile(profileData);
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching profile:', error);
-                    });
+        setLoading(true);
+
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            // Redirect to the user's profile after successful login
+            navigate('/myprofile');
+        } catch (error) {
+            console.error('Login error:', error);
+
+            if (error.code === 'auth/wrong-password') {
+                setError('Wrong password. Please try again.');
+            } else if (error.code === 'auth/user-not-found') {
+                setError('User not found.');
+            } else if (error.code === 'auth/invalid-email') {
+                setError('Please enter a valid email address. ');
+            } else {
+                setError('An error occurred while logging in. Please try again later.');
             }
-        });
-
-        return () => unsubscribe(); // Cleanup subscription on unmount
-    }, []);
-
-    const handleUpdateUsername = () => {
-        if (user) {
-            // Update the username in Firestore
-            const userId = user.uid;
-            const userDocRef = doc(db, 'users', userId);
-
-            updateDoc(userDocRef, { username: newUsername })
-                .then(() => {
-                    setSuccessMessage('Username updated successfully.');
-                    // Update the local profile data if needed
-                    setProfile((prevProfile) => ({
-                        ...prevProfile,
-                        username: newUsername,
-                    }));
-                })
-                .catch((error) => {
-                    setErrorMessage('Error updating username: ' + error.message);
-                });
+        } finally {
+            setLoading(false);
         }
     };
 
-    const handleUpdatePassword = () => {
-        if (user) {
-            // Update the password using Firebase Authentication
-            // Ensure newPassword is a valid string containing the new password
-            if (newPassword.trim() === '') {
-                setErrorMessage('Please enter a valid password.');
-                return;
-            }
+    const handlePasswordReset = async () => {
+        if (!email) {
+            setError('Please enter your email to reset your password.');
+            return;
+        }
 
-            updatePassword(user, newPassword)
-                .then(() => {
-                    setSuccessMessage('Password updated successfully.');
-                })
-                .catch((error) => {
-                    setErrorMessage('Error updating password: ' + error.message);
-                });
+        try {
+            await sendPasswordResetEmail(auth, email);
+            setError('Password reset email sent. Check your inbox.');
+        } catch (error) {
+            console.error('Password reset error:', error);
+            setError('Password reset failed. Please check the email address.');
         }
     };
 
     return (
         <div className="centeredcontainer has-text-centered">
-            <h1 className="title has-text-warning">Edit Your Profile</h1>
-
-            <form>
-                <div className="field">
-                    <label className="label has-text-warning">New Username:</label>
-                    <div className="control">
-                        <input
-                            className="input"
-                            type="text"
-                            placeholder="New Username"
-                            value={newUsername}
-                            onChange={(e) => setNewUsername(e.target.value)}
-                        />
-                    </div>
-                </div>
-                <div className="field">
-                    <label className="label has-text-warning">New Password:</label>
-                    <div className="control">
-                        <input
-                            className="input"
-                            type="password"
-                            placeholder="New Password"
-                            value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
-                        />
-                    </div>
-                </div>
-                <div className="field">
-                    <div className="control">
-                        <button className="button is-warning" onClick={handleUpdateUsername}>
-                            Update Username
-                        </button>
-                        <button className="button is-warning" onClick={handleUpdatePassword}>
-                            Update Password
-                        </button>
-                    </div>
-                </div>
-            </form>
-
-            {successMessage && <p className="has-text-success">{successMessage}</p>}
-            {errorMessage && <p className="has-text-danger">{errorMessage}</p>}
-
-            <Link to="/myprofile" className="has-text-warning">
-                Back to My Profile
+            <h1 className="title has-text-warning">Login</h1>
+            <Link to="/register">
+                <p className="subtitle is-5 has-text-warning is-italic">Don't have an account? Register here!</p>
             </Link>
+            <form onSubmit={handleLogin}>
+                <div>
+                    <label className="has-text-warning">Email:</label>
+                    <br />
+                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                </div>
+                <div>
+                    <label className="has-text-warning">Password:</label>
+                    <br />
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                </div>
+                <br />
+                <button className="button is-warning is-outlined" type="submit" disabled={loading}>
+                    {loading ? 'Logging in...' : 'Log In'}
+                </button>
+            </form>
+            <p className="has-text-link" style={{ cursor: 'pointer' }} onClick={handlePasswordReset}>
+                Forgot your password? Reset it here.
+            </p>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
     );
 };
 
-export default EditProfile;
+export default Login;

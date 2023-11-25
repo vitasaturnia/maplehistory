@@ -5,8 +5,8 @@ import Layout from "../components/Layout";
 const LoginPage = () => {
     return (
         <Layout>
-            <section className="section is-full-height">
-            <div className="container">
+            <section className="section minheight100">
+            <div className="centeredcontainer">
             <h1>Login</h1>
             <Login />
         </div>

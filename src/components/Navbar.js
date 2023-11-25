@@ -20,7 +20,7 @@ const Navbar = () => {
   }, []);
 
   const toggleHamburger = () => {
-    setActive(!active);
+    setActive((prevActive) => !prevActive);
   };
 
   const toggleDropdown = () => {
@@ -102,16 +102,22 @@ const Navbar = () => {
                     <FontAwesomeIcon icon={faUser} className="is-size-5 has-text-warning" />
                   </a>
                   <div className="navbar-dropdown" style={{ backgroundColor: 'black' }}>
-                    <Link to="/myprofile" className="navbar-item">
-                      My Profile
-                    </Link>
-                    <Link to="/editprofile" className="navbar-item">
-                      Edit Profile
-                    </Link>
-                    {user && (
-                        <a className="navbar-item" onClick={handleSignOut}>
-                          Logout
-                        </a>
+                    {user ? (
+                        <>
+                          <Link to="/myprofile" className="navbar-item">
+                            My Profile
+                          </Link>
+                          <Link to="/editprofile" className="navbar-item">
+                            Edit Profile
+                          </Link>
+                          <a className="navbar-item" onClick={handleSignOut}>
+                            Logout
+                          </a>
+                        </>
+                    ) : (
+                        <Link to="/login" className="navbar-item">
+                          Login
+                        </Link>
                     )}
                   </div>
                 </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import EditProfile from '../components/EditProfile';
 import Layout from "../components/Layout";
-const EditAccountPage = () => {
+const EditProfilePage = () => {
     return (
         <Layout>
         <div className="section has-text-warning has-text-centered">
@@ -12,4 +12,4 @@ const EditAccountPage = () => {
     );
 };
 
-export default EditAccountPage;
+export default EditProfilePage;

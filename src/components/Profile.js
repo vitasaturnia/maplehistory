@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { auth, db } from '../../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
+import { Link } from "gatsby";
+
 
 const Profile = () => {
     const [user, setUser] = useState(null);
@@ -77,7 +79,7 @@ const Profile = () => {
                 </div>
             ) : (
                 <div className="has-text-centered">
-                    <p>Please sign in to view your profile.</p>
+                    Please <Link to="/login" className="has-text-weight-bold">login</Link> to view your profile.
                 </div>
             )}
         </div>

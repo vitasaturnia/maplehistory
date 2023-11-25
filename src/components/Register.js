@@ -36,7 +36,7 @@ const Register = () => {
 
     return (
         <div className="centeredcontainer has-text-centered">
-            <h1 className="title has-text-warning">Sign Up</h1>
+            <h1 className="title has-text-warning">Register</h1>
             <Link to="/login">
                 <p className="subtitle is-5 has-text-warning is-italic">Already a member? Login instead!</p>
             </Link>
