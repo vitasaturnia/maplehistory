@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { collection, query, orderBy, onSnapshot, doc, setDoc, increment, serverTimestamp, where, getDocs } from 'firebase/firestore';
+import React, { useState, useEffect, useCallback } from 'react';
+import { collection, query, orderBy, onSnapshot, startAfter, limit } from 'firebase/firestore';
 import { db } from '../../firebase';
+import debounce from 'lodash/debounce';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
@@ -8,84 +9,80 @@ const POSTS_PER_PAGE = 10;
 
 export default function FeedGenerator() {
     const [posts, setPosts] = useState([]);
+    const [lastVisible, setLastVisible] = useState(null);
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            if (loading || !hasMore) return;
-            setLoading(true);
+    const fetchPosts = useCallback(() => {
+        if (loading || !hasMore) return;
+        setLoading(true);
 
-            const postsQuery = query(collection(db, 'posts'), orderBy('timestamp', 'desc'));
-
-            try {
-                const snapshot = await getDocs(postsQuery);
-                const newPosts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setPosts(prevPosts => [...prevPosts, ...newPosts]);
-                setHasMore(newPosts.length === POSTS_PER_PAGE);
-            } catch (error) {
-                console.error('Error fetching posts:', error);
-            }
-
-            setLoading(false);
-        };
-
-        fetchPosts();
-    }, [loading, hasMore]);
-
-    const likePost = async (postId) => {
-        try {
-            const postRef = doc(db, 'posts', postId);
-            await setDoc(postRef, { likes: increment(1) }, { merge: true });
-
-            // Record the like in a separate "likes" collection
-            const likeData = {
-                postId: postId,
-                userId: 'nEokqhnR2GarUS9usWQUHiuYqUg2', // Replace with the actual user ID
-                timestamp: serverTimestamp()
-            };
-            const likesCollectionRef = collection(db, 'likes');
-            await setDoc(doc(likesCollectionRef, postId + '_' + likeData.userId), likeData);
-
-        } catch (error) {
-            console.error('Error liking the post:', error);
+        let postsQuery = query(collection(db, 'posts'), orderBy('timestamp', 'desc'), limit(POSTS_PER_PAGE));
+        if (lastVisible) {
+            postsQuery = query(collection(db, 'posts'), orderBy('timestamp', 'desc'), startAfter(lastVisible), limit(POSTS_PER_PAGE));
         }
-    };
+
+        const unsubscribe = onSnapshot(postsQuery, (snapshot) => {
+            const newPosts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setPosts(prev => [...prev, ...newPosts]);
+            setLastVisible(snapshot.docs[snapshot.docs.length - 1]);
+            setHasMore(newPosts.length === POSTS_PER_PAGE);
+            setLoading(false);
+        });
+
+        return () => unsubscribe();
+    }, [lastVisible, loading, posts]);
+
+    const handleScroll = useCallback(() => {
+        if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight - 100 || loading) return;
+        fetchPosts();
+    }, [fetchPosts, loading]);
+
+    const debouncedHandleScroll = debounce(handleScroll, 100);
+
+    useEffect(() => {
+        fetchPosts();
+        window.addEventListener('scroll', debouncedHandleScroll);
+        return () => {
+            window.removeEventListener('scroll', debouncedHandleScroll);
+            debouncedHandleScroll.cancel();
+        };
+    }, [fetchPosts, debouncedHandleScroll]);
+
 
     return (
         <div className="feed-container minheight100">
             {posts.map(post => (
-                <div key={post.id} className="post-card">
-                    <div className="post-content">
-                        <h3 className="post-title">{post.content}</h3>
-                        {/* Add the like button */}
-                        <div className="like-icons">
-                            <FontAwesomeIcon
-                                icon={faHeart}
-                                className="icon"
-                                onClick={() => likePost(post.id)}
-                            />
-                            {/* Display the number of likes */}
-                            <span className="like-count has-text-warning">{post.likes || 0}</span>
+                // Using a fragment to wrap the post card and the read more button
+                <React.Fragment key={post.id}>
+                    <div className="post-card">
+                        <div className="post-content">
+                            <h3 className="post-title">{post.content}</h3>
+                            <div className="like-icons">
+                                <FontAwesomeIcon icon={faHeart} className="icon" />
+                            </div>
+                            <p className="post-meta">
+                                Created by {post.username || 'Unknown User'} on {new Date(post.timestamp.seconds * 1000).toLocaleString()}
+                            </p>
                         </div>
-                        <p className="post-meta">
-                            Created by {post.username || 'Unknown User'} on {new Date(post.timestamp.seconds * 1000).toLocaleString()}
-                        </p>
                     </div>
                     <p className="is-italic has-text-warning">Read More</p>
-                </div>
+                </React.Fragment>
             ))}
             {loading && <div className="loading is-italic as-text-warning">Loading more posts...</div>}
             {!hasMore && (
+
                 <div className="is-full-width">
                     <div className="divider">
                         <span></span>
                         <span>End of Feed</span>
                         <span></span>
                     </div>
+
                     <div className="end-of-feed is-italic has-text-warning">No more posts to load.</div>
                 </div>
             )}
         </div>
     );
+
 }
