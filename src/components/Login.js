@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { sendPasswordResetEmail } from 'firebase/auth';
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../../firebase'; // Ensure the path is correct
 import { Link, navigate } from 'gatsby';
 
@@ -32,7 +31,7 @@ const Login = () => {
             } else if (error.code === 'auth/user-not-found') {
                 setError('User not found.');
             } else if (error.code === 'auth/invalid-email') {
-                setError('Please enter a valid email address. ');
+                setError('Please enter a valid email address.');
             } else {
                 setError('An error occurred while logging in. Please try again later.');
             }
@@ -48,11 +47,19 @@ const Login = () => {
         }
 
         try {
+            // Generate the password reset link
             await sendPasswordResetEmail(auth, email);
+
+            // Inform the user that the password reset email has been sent
             setError('Password reset email sent. Check your inbox.');
         } catch (error) {
             console.error('Password reset error:', error);
-            setError('Password reset failed. Please check the email address.');
+
+            if (error.code === 'auth/invalid-email') {
+                setError('Please enter a valid email address.');
+            } else {
+                setError('Password reset failed. Please check the email address.');
+            }
         }
     };
 
