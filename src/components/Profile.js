@@ -45,7 +45,7 @@ const Profile = () => {
     return (
         <div className="section has-text-warning">
             {user ? (
-                <div>
+                <div className="section has-text-centered">
                     <h2>Your Profile</h2>
                     {profile ? (
                         <div>
