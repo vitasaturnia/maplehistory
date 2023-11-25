@@ -74,13 +74,13 @@ const Navbar = () => {
                 <Link className="navbar-item" to="/wiki">
                   Wiki
                 </Link>
-                <Link className="navbar-item" to="/scholarships">
+                <Link className="navbar-item" to="/guild">
                   Guild
                 </Link>
                 <Link className="navbar-item" to="/community">
                   Community
                 </Link>
-                <Link className="navbar-item" to="/forum">
+                <Link className="navbar-item" to="/myprofile">
                   My History
                 </Link>
                 <Link className="navbar-item" to="/forum">
