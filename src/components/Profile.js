@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { auth, db } from '../../firebase'; // Import your Firebase configuration
 import { onAuthStateChanged } from 'firebase/auth';
+import { getFirestore, doc, getDoc } from 'firebase/firestore'; // Import Firestore functions
 
 const Profile = () => {
     const [user, setUser] = useState(null);
@@ -14,13 +15,15 @@ const Profile = () => {
                 // If the user is authenticated, fetch their profile data from Firestore
                 const userId = currentUser.uid;
 
-                db.collection('users')
-                    .doc(userId) // Use the user's UID as the document ID
-                    .get()
-                    .then((doc) => {
-                        if (doc.exists) {
+                // Reference to the user's document
+                const userDocRef = doc(db, 'users', userId);
+
+                // Retrieve the document data
+                getDoc(userDocRef)
+                    .then((userDocSnapshot) => {
+                        if (userDocSnapshot.exists()) {
                             // Assuming there's only one profile per user
-                            const profileData = doc.data();
+                            const profileData = userDocSnapshot.data();
                             setProfile(profileData);
                         } else {
                             // If the profile document doesn't exist, set profile to null
@@ -47,13 +50,10 @@ const Profile = () => {
                     {profile ? (
                         <div>
                             {profile.username && (
-                                <p><strong>Username:</strong> {profile.username}</p>
+                                <p><strong>Ingame Username:</strong> {profile.username}</p>
                             )}
                             {profile.guild && (
                                 <p><strong>Guild:</strong> {profile.guild}</p>
-                            )}
-                            {profile.year_joined && (
-                                <p><strong>Year Joined:</strong> {profile.year_joined}</p>
                             )}
                             {/* Add more profile fields as needed */}
                         </div>
