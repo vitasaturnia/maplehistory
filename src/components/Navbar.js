@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, navigate } from "gatsby";
-import logo from "../img/fenixlogo2.png";
+import logo from "../img/maple.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { auth } from '../../firebase'; // Ensure this path is correct
@@ -51,7 +51,7 @@ const Navbar = () => {
           <div className="column">
             <div className="navbar-brand">
               <Link to="/" className="navbar-item" title="Logo">
-                <img src={logo} alt="Saturnian" />
+                <img src={logo} alt="MapleHistory" className=" " />
               </Link>
               {/* Hamburger menu */}
               <div
@@ -88,6 +88,9 @@ const Navbar = () => {
                 </Link>
                 <Link className="navbar-item" to="/forum">
                   Forum
+                </Link>
+                <Link className="navbar-item" to="/contact">
+                  Contact
                 </Link>
               </div>
             </div>

@@ -63,7 +63,23 @@ input
   color: $warning // Keep the text color as it was
 
 .newsletterinput
-  background-color: darken-color($link, 3%)!important // Lighten the background color by 30%
+  background-color: $link!important // Lighten the background color by 30%
+  border: 0.1px solid $gold
+
+.newslettercontainer
+  display: flex
+  align-items: center
+  justify-content: center /* Horizontally center the container */
+
+.orangeicon
+  height: 1.1rem!important
+
+
+
+// literally only for some margin on the left lol
+
+.orangeicon
+ margin-left: 2px!important
 
 
 
@@ -183,6 +199,13 @@ input
   display: flex
   align-items: center
   justify-content: center
+
+.is-full-width
+  min-width: 100vw!important
+  width: 100vwvw!important
+
+.minheight100
+  min-height: calc(100vh - 7.25em)
 
 
 .is-vertical-center
@@ -331,23 +354,6 @@ footer.footer
     border: 1px solid rgba($warning, 0.75) !important
     box-shadow: none !important
     resize: none !important
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -504,6 +510,13 @@ newsletter
 .logo
   margin-right: auto
   margin-left: auto
+  width: 2em !important /* Adjust this value as needed */
+  height: auto /* To maintain aspect ratio */
+
+//override default max size of logo
+
+.navbar-item img
+  max-height: 2em!important /* Adjust this value as needed */
 
 
 .herologo
@@ -526,6 +539,160 @@ newsletter
 
   &.is-active
     display: block
+
+
+// Feed Styling
+// Feed Styling
+.feed-container
+  display: flex
+  flex-direction: column
+  align-items: center
+  padding: 20px
+
+// Add a new animation class to .post-card:hover
+.post-card
+  &:hover
+    .like-icons
+      animation: custom-scale-up 0.1s ease-in-out forwards, custom-fade-in 0.2s ease-in-out forwards
+
+@keyframes custom-scale-up
+  0%
+    transform: translate(-50%, -50%) scale(1)
+  50%
+    transform: translate(-50%, -50%) scale(1.1)
+  100%
+    transform: translate(-50%, -50%) scale(1.2)
+
+@keyframes custom-fade-in
+  0%
+    opacity: 0
+  100%
+    opacity: 1
+
+
+.post-card
+  background: #E7BF7E
+  border-radius: 10px
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1)
+  margin: 15px 0
+  justify-content: center!important /* Aligns horizontally */
+  align-items: center!important /* Aligns vertically */
+  padding: 20px
+  width: 25vw /* Adjust the width as needed */
+  position: relative
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease
+  min-height: 25vw /* Adjust this value as needed for minimum card height */
+
+  &:hover
+    background: #E6AF2E
+    transform: scale(1.01)
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)
+
+    .like-icons
+      display: block
+
+    .post-title, .post-meta
+      opacity: 0
+      transition: opacity 200ms ease-in-out /* Adjust the duration in milliseconds for faster fade-out */
+
+.like-icons
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  font-size: 1.5em
+  cursor: pointer
+  z-index: 1
+  display: none
+
+
+
+  .icon
+    color: darkred
+    height: 3rem
+    width: auto
+    &:hover
+      animation: pulse 1.5s infinite ease-in-out
+
+.post-content
+  text-align: center
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+
+.read-more-text
+  text-align: center
+  font-size: 1.1em
+  display: none
+
+.post-card
+  &:hover
+    .read-more-text
+      display: block!important
+      color: white!important
+
+@keyframes pulse
+  0%
+    transform: scale(1)
+  50%
+    transform: scale(1.1)
+  100%
+    transform: scale(1)
+
+
+// divider styling
+
+$gold: #E6AF2E
+
+.divider
+  /* minor cosmetics */
+  display: table
+  font-size: 24px
+  text-align: center
+  width: 75%
+  /* divider width */
+  margin: 40px auto
+  /* spacing above/below */
+
+  span
+    display: table-cell
+    position: relative
+
+
+    &:first-child, &:last-child
+      width: 50%
+      top: 13px
+
+      /* adjust vertical align */
+      -moz-background-size: 100% 2px
+      /* line width */
+      background-size: 100% 2px
+      /* line width */
+      background-position: 0 0, 0 100%
+      background-repeat: no-repeat
+      background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), to($gold))
+      background-image: -webkit-linear-gradient(180deg, transparent, $gold)
+      background-image: -moz-linear-gradient(180deg, transparent, $gold)
+      background-image: -o-linear-gradient(180deg, transparent, $gold)
+      background-image: linear-gradient(90deg, transparent, $gold)
+
+    &:nth-child(2)
+      color: $gold
+      padding: 0px 5px
+      width: auto
+      white-space: nowrap
+      letter-spacing: 1px!important
+
+
+    &:last-child
+      /* color changes in here */
+      background-image: -webkit-gradient(linear, 0 0, 0 100%, from($gold), to(transparent))
+      background-image: -webkit-linear-gradient(180deg, $gold, transparent)
+      background-image: -moz-linear-gradient(180deg, $gold, transparent)
+      background-image: -o-linear-gradient(180deg, $gold, transparent)
+      background-image: linear-gradient(90deg, $gold, transparent)
+
 
 /* Styles for the mobile dropdown toggle button
 

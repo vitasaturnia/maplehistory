@@ -13,9 +13,9 @@ const Newsletter = () => (
                 <h1 className="subtitle has-text-warning">
                     Want to stay up to date?
                 </h1>
-                <div className="has-text-warning">
+                <div className="newslettercontainer as-text-warning">
                     <input className="newsletterinput" type="text" placeholder="Email"/>
-                    <FontAwesomeIcon className="orangeicon" icon={faEnvelope} />
+                    <FontAwesomeIcon className="orangeicon is-large"  icon={faEnvelope} />
                 </div>
         </div>
     </section>
