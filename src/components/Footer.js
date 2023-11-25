@@ -37,12 +37,12 @@ const Footer = class extends React.Component {
                     </li>
                     <li>
                       <Link className="navbar-item has-text-warning" to="/news">
-                        News
+                        Wiki
                       </Link>
                     </li>
                     <li>
                       <Link className="navbar-item has-text-warning" to="/shop">
-                        Shop
+                        My History
                       </Link>
                     </li>
                   </ul>
@@ -56,17 +56,17 @@ const Footer = class extends React.Component {
                     </li>
                     <li>
                       <Link className="navbar-item has-text-warning" to="/forum">
-                        Forum
+                        Guild
                       </Link>
                     </li>
                     <li>
                       <Link className="navbar-item has-text-warning" to="/scholarships">
-                        Wiki
+                        Forum
                       </Link>
                     </li>
                     <li>
                       <Link className="navbar-item has-text-warning" to="/games">
-                        Games
+                        News
                       </Link>
                     </li>
                   </ul>
@@ -78,7 +78,7 @@ const Footer = class extends React.Component {
                 <div className="content has-text-centered">
                 <img
                     src={quetzalcoatl}
-                    alt="Saturnian Network"
+                    alt="Maple History"
                     className=""
                     style={{ width: "14em", height: "10em" }}
                 />

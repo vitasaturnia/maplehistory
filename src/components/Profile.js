@@ -8,6 +8,9 @@ const Profile = () => {
     const [profile, setProfile] = useState(null);
 
     useEffect(() => {
+
+
+
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
 
