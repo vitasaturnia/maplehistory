@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { auth } from '../../firebase'; // Ensure this path is correct
+import firebase from 'firebase/compat/app'; // Ensure Firebase is imported correctly
 
 const FirebaseAuthUI = () => {
     useEffect(() => {
@@ -11,10 +12,7 @@ const FirebaseAuthUI = () => {
             const uiConfig = {
                 signInSuccessUrl: '/',
                 signInOptions: [
-                    {
-                        provider: 'password', // Using 'password' for email/password sign-in
-                        requireDisplayName: true
-                    },
+                    firebase.auth.EmailAuthProvider.PROVIDER_ID, // Correct provider ID for email/password
                     // Add other providers here
                 ],
                 // Additional configuration options as needed
