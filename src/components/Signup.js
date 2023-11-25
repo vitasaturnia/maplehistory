@@ -24,7 +24,7 @@ const SignUp = () => {
         <div className="centeredcontainer has-text-centered">
             <h1 className="title has-text-warning">Sign Up</h1>
             <Link to="/register">
-                <p className="subtitle is-5 has-text-warning is-italic">Already a member? Sign in instead!</p>
+                <p className="subtitle is-5 has-text-warning is-italic">Already a member? Login instead!</p>
             </Link>
             <form onSubmit={handleSignUp}>
                 <div>

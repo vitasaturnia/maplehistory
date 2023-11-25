@@ -40,7 +40,7 @@ const Login = () => {
         <div className="centeredcontainer has-text-centered">
             <h1 className="title has-text-warning">Sign in</h1>
             <Link to="/register">
-                <p className="subtitle is-5 has-text-warning is-italic">Not a member yet? Sign up now!</p>
+                <p className="subtitle is-5 has-text-warning is-italic">Not a member yet? Register now!</p>
             </Link>
 
             <form onSubmit={handleLogin}>
