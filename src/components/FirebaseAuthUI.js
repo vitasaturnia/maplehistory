@@ -1,30 +1,27 @@
 import React, { useEffect } from 'react';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import * as firebaseui from 'firebaseui';
-import 'firebaseui/dist/firebaseui.css';
 import { auth } from '../../firebase'; // Ensure this path is correct
+import firebase from 'firebase/compat/app'; // Ensure Firebase is imported correctly
 
 const FirebaseAuthUI = () => {
     useEffect(() => {
+        // Only execute in the client side
         if (typeof window !== 'undefined') {
+            const firebaseui = require('firebaseui');
+            import('firebaseui/dist/firebaseui.css');
+
             const uiConfig = {
                 signInSuccessUrl: '/',
                 signInOptions: [
-                    firebase.auth.EmailAuthProvider.PROVIDER_ID, // Correct provider ID
+                    firebase.auth.EmailAuthProvider.PROVIDER_ID, // Correct provider ID for email/password
+                    // Add other providers here
                 ],
-                callbacks: {
-                    signInSuccessWithAuthResult: (authResult) => {
-                        console.log('Sign-in success:', authResult);
-                        return true; // Return type determines redirect behavior
-                    },
-                    uiShown: () => {
-                        console.log('FirebaseUI Widget rendered');
-                    },
-                },
+                // Additional configuration options as needed
             };
 
-            const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(auth);
+            let ui = firebaseui.auth.AuthUI.getInstance();
+            if (!ui) {
+                ui = new firebaseui.auth.AuthUI(auth);
+            }
             ui.start('#firebaseui-auth-container', uiConfig);
 
             return () => {
