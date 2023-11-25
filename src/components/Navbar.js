@@ -83,8 +83,8 @@ const Navbar = () => {
                 <Link className="navbar-item" to="/community">
                   Community
                 </Link>
-                <Link className="navbar-item" to="/myprofile">
-                  My History
+                <Link className="navbar-item" to="/feed">
+                  Maple Book
                 </Link>
                 <Link className="navbar-item" to="/forum">
                   Forum

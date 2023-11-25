@@ -41,6 +41,15 @@ $navbar-box-shadow-size: 0
 
 
 
+.icon
+  color: #2A0800 /* Default color */
+  transition: color 0.3s /* Add a transition for smooth color change */
+
+  &:hover
+    color: #E6AF2E /* Green color on hover */
+
+
+
 
 // Function to lighten a color by a specific percentage
 @function lighten-color($color, $percent)
@@ -76,10 +85,19 @@ input
 
 
 
-// literally only for some margin on the left lol
+// change heart to green once post been liked
 
-.orangeicon
- margin-left: 2px!important
+
+.heart-icon
+  transition: color 0.3s, transform 0.3s
+  cursor: pointer
+
+  &:hover
+    color: #FF0000!important // Medium Sea Green (Green for like)
+
+  &.liked
+    color: #3CB371!important // Crimson (Deep red for liked)
+
 
 
 

@@ -1,18 +1,19 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { collection, query, orderBy, onSnapshot, startAfter, limit, doc, setDoc, updateDoc, serverTimestamp, increment } from 'firebase/firestore';
-import { db } from '../../firebase';
-import debounce from 'lodash/debounce';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { collection, query, orderBy, onSnapshot, startAfter, limit, doc, setDoc, updateDoc, serverTimestamp, increment, deleteDoc } from 'firebase/firestore';
+import { db } from '../../firebase'; // Adjust the path as per your project structure
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { getAuth } from "firebase/auth";
 
-const POSTS_PER_PAGE = 10;
+const POSTS_PER_PAGE = 1;
 
 export default function FeedGenerator() {
     const [posts, setPosts] = useState([]);
     const [lastVisible, setLastVisible] = useState(null);
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
+    const [likedPosts, setLikedPosts] = useState(new Set());
+    const loadingRef = useRef(null);
 
     const auth = getAuth();
     const currentUser = auth.currentUser;
@@ -38,10 +39,44 @@ export default function FeedGenerator() {
             await updateDoc(postRef, {
                 likeCount: increment(1),
             });
+
+            setLikedPosts(prevLikedPosts => new Set(prevLikedPosts.add(postId)));
         } catch (error) {
             console.error("Error liking the post: ", error);
         }
     };
+
+    const unlikePost = async (postId) => {
+        if (!currentUserId) {
+            console.error("User not authenticated");
+            return;
+        }
+
+        const likeId = `${currentUserId}_${postId}`;
+        const likeRef = doc(db, 'likes', likeId);
+        const postRef = doc(db, 'posts', postId);
+
+        try {
+            await deleteDoc(likeRef);
+
+            await updateDoc(postRef, {
+                likeCount: increment(-1),
+            });
+
+            setLikedPosts(prevLikedPosts => {
+                const newLikedPosts = new Set(prevLikedPosts);
+                newLikedPosts.delete(postId);
+                return newLikedPosts;
+            });
+        } catch (error) {
+            console.error("Error unliking the post: ", error);
+        }
+    };
+
+    const isPostLiked = useCallback(
+        (postId) => likedPosts.has(postId),
+        [likedPosts]
+    );
 
     const fetchPosts = useCallback(() => {
         if (loading || !hasMore) return;
@@ -52,7 +87,7 @@ export default function FeedGenerator() {
             postsQuery = query(
                 collection(db, 'posts'),
                 orderBy('timestamp', 'desc'),
-                startAfter(lastVisible.timestamp, lastVisible.id),
+                startAfter(lastVisible),
                 limit(POSTS_PER_PAGE)
             );
         }
@@ -63,60 +98,66 @@ export default function FeedGenerator() {
                 ...doc.data(),
             }));
 
-            setPosts((prev) => {
-                // Filter out posts with duplicate IDs to avoid rendering them again
-                const uniqueNewPosts = newPosts.filter((newPost) => !prev.some((prevPost) => prevPost.id === newPost.id));
-                return [...prev, ...uniqueNewPosts];
-            });
-
+            setPosts(prev => [...prev, ...newPosts]);
             setLastVisible(snapshot.docs[snapshot.docs.length - 1]);
             setHasMore(newPosts.length === POSTS_PER_PAGE);
             setLoading(false);
         });
 
         return () => unsubscribe();
-    }, [lastVisible, loading]);
+    }, [lastVisible, loading, hasMore]);
 
     useEffect(() => {
-        fetchPosts();
-        window.addEventListener('scroll', debouncedHandleScroll);
-        return () => {
-            window.removeEventListener('scroll', debouncedHandleScroll);
-            debouncedHandleScroll.cancel();
-        };
-    }, [fetchPosts]);
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && hasMore) {
+                    fetchPosts();
+                }
+            },
+            { threshold: 1.0 }
+        );
 
-    const debouncedHandleScroll = debounce(() => {
-        if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight - 100 || loading) return;
-        fetchPosts();
-    }, 100);
+        if (loadingRef.current) {
+            observer.observe(loadingRef.current);
+        }
+
+        return () => {
+            if (loadingRef.current) {
+                observer.unobserve(loadingRef.current);
+            }
+        };
+    }, [fetchPosts, hasMore]);
 
     return (
         <div className="feed-container minheight100">
             {posts.map(post => (
                 <div className="post-card" key={post.id}>
                     <div className="post-content">
-                        <h3 className="post-title">{post.content}</h3>
+                        <h3 className="post-title">{post.title}</h3>
                         <div className="like-icons">
-                            <FontAwesomeIcon icon={faHeart} className="icon" onClick={() => likePost(post.id)} />
-                        </div>
-                        <p className="post-meta">
-                            Created by {post.username ? post.username : 'Unknown User'} on {new Date(post.timestamp.seconds * 1000).toLocaleString()}
+                            <FontAwesomeIcon
+                                icon={faHeart}
+                                className={`heart-icon icon ${isPostLiked(post.id) ? 'liked' : ''}`}
+                                onClick={() => {
+                                    if (isPostLiked(post.id)) {
+                                        unlikePost(post.id);
+                                    } else {
+                                        likePost(post.id);
+                                    }
+                                }}
+
+                            />
+                                    </div>
+                                    <p className="post-meta">
+                                    Created by {post.username ? post.username : 'Unknown User'} on {new Date(post.timestamp.seconds * 1000).toLocaleString()}
                         </p>
                     </div>
                 </div>
             ))}
-            {loading && <div className="loading is-italic as-text-warning">Loading more posts...</div>}
-            {!hasMore && (
-                <div className="is-full-width">
-                    <div className="divider">
-                        <span></span>
-                        <span>End of Feed</span>
-                        <span></span>
-                    </div>
-                    <div className="end-of-feed is-italic has-text-warning">No more posts to load.</div>
-                </div>
-            )}
+            <div ref={loadingRef} className="loading-indicator">
+                {loading && <p>Loading more posts...</p>}
+            </div>
+            {!hasMore && <div className="end-of-feed">End of Feed</div>}
         </div>
     );
 }
