@@ -1,5 +1,5 @@
 import React from 'react';
-import SignUp from '../components/SignUp'; // Assuming SignUp is the name of the sign-up component
+import Register from '../components/Register'; // Assuming Register is the name of the sign-up component
 import Layout from "../components/Layout";
 
 const SignUpPage = () => {
@@ -8,7 +8,7 @@ const SignUpPage = () => {
             <section className="section is-full-height">
                 <div className="container">
                     <h1>Register</h1>
-                    <SignUp />
+                    <Register />
                 </div>
             </section>
         </Layout>
