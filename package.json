@@ -37,6 +37,7 @@
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-modal": "^3.16.1",
+    "react-spring": "^9.7.3",
     "sass": "^1.69.5",
     "uuid": "^8.0.0"
   },

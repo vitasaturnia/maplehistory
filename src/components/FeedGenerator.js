@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { collection, query, orderBy, onSnapshot, startAfter, limit, doc, setDoc, updateDoc, serverTimestamp, increment, deleteDoc } from 'firebase/firestore';
-import { db } from '../../firebase'; // Adjust the path as per your project structure
+import { db } from '../../firebase';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { getAuth } from "firebase/auth";
+import { useTransition, animated } from 'react-spring';
 
 const POSTS_PER_PAGE = 1;
 
@@ -128,31 +129,31 @@ export default function FeedGenerator() {
         };
     }, [fetchPosts, hasMore]);
 
+    const transitions = useTransition(posts, {
+        from: { opacity: 0, transform: 'translate3d(0,-40px,0)' },
+        enter: { opacity: 1, transform: 'translate3d(0,0px,0)' },
+        leave: { opacity: 0, transform: 'translate3d(0,-40px,0)' },
+        keys: post => post.id
+    });
+
     return (
         <div className="feed-container minheight100">
-            {posts.map(post => (
-                <div className="post-card" key={post.id}>
+            {transitions((styles, post) => (
+                <animated.div style={styles} className="post-card" key={post.id}>
                     <div className="post-content">
                         <h3 className="post-title">{post.title}</h3>
                         <div className="like-icons">
                             <FontAwesomeIcon
                                 icon={faHeart}
                                 className={`heart-icon icon ${isPostLiked(post.id) ? 'liked' : ''}`}
-                                onClick={() => {
-                                    if (isPostLiked(post.id)) {
-                                        unlikePost(post.id);
-                                    } else {
-                                        likePost(post.id);
-                                    }
-                                }}
-
+                                onClick={() => isPostLiked(post.id) ? unlikePost(post.id) : likePost(post.id)}
                             />
-                                    </div>
-                                    <p className="post-meta">
-                                    Created by {post.username ? post.username : 'Unknown User'} on {new Date(post.timestamp.seconds * 1000).toLocaleString()}
+                        </div>
+                        <p className="post-meta">
+                            Created by {post.username ? post.username : 'Unknown User'} on {new Date(post.timestamp.seconds * 1000).toLocaleString()}
                         </p>
                     </div>
-                </div>
+                </animated.div>
             ))}
             <div ref={loadingRef} className="loading-indicator">
                 {loading && <p>Loading more posts...</p>}

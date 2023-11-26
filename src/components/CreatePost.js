@@ -69,14 +69,14 @@ export default function CreatePost() {
                                 </div>
                                 <div className="field">
                                     <div className="control">
-                                        <button className="button is-warning" type="submit">
+                                        <button className="button is-warning is-outlined" type="submit">
                                             Post
                                         </button>
                                     </div>
                                 </div>
                             </form>
                             {successMessage && (
-                                <p className="has-text-success">{successMessage}</p>
+                                <p className="has-text-success mt-5">{successMessage}</p>
                             )}
                             {errorMessage && <p className="has-text-danger">{errorMessage}</p>}
                         </div>

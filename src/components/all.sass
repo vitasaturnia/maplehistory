@@ -3,34 +3,21 @@
 // Initial colors
 $white: #FCF7F8
 $orange: #E6AF2E
-$han: #5218fa
 $black: #2A0800
 $purple: #4B0082
 $gold: #E6AF2E
-
-
-
-// screen sizes:
-
-// Brands
+$warning: #E6AF2E
+$primary-invert: #333
 
 $black: $black
-$discord: #7289DA
-$metamask: #F6851B
-$han: $han
 $orange: $orange
 $white: $white
 
-// Bulma
-
 $primary: $orange
-$primary-invert: #333
 $link: $purple
-$warning: #E6AF2E
 $warning: $gold
 $body-color: $black
 $warning: $warning
-$discord: $discord
 
 
 // Navbar
@@ -38,7 +25,6 @@ $discord: $discord
 $navbar-background-color: $black
 $navbar-item-color: $warning
 $navbar-box-shadow-size: 0
-
 
 
 .icon
@@ -150,7 +136,51 @@ input
   margin-left: auto
   margin-right: auto
 
+// community page
 
+
+.community-section
+  width: 75vw!important
+  margin: auto!important
+  padding: 2rem // Adjust padding for better content spacing
+  border-top-left-radius: 10px // Add rounded corners only at the top left
+  border-top-right-radius: 10px // Add rounded corners only at the top right
+
+.centercontainer
+  text-align: left!important
+
+.abouttitle
+  margin-bottom: 1rem // Add spacing below the title
+
+
+// Align text to the left for readability
+
+.title
+  font-size: 2.5rem
+
+  // Increase title font size for emphasis
+  margin-bottom: 1rem
+
+// Add spacing below the title
+
+.content
+  font-size: 1.3rem // Increase content font size for readability
+  line-height: 1.4
+
+
+// React Spring Animation Styles
+@keyframes fade-in
+  0%
+    opacity: 0
+
+  100%
+    opacity: 1
+
+.animated
+  animation: fade-in 1s ease-in-out
+
+
+// end community section
 
 
 .navbar .navbar-menu
@@ -223,7 +253,7 @@ input
   width: 100vwvw!important
 
 .minheight100
-  min-height: calc(100vh - 7.25em)
+  min-height: calc(100vh - 4.75em)
 
 
 .is-vertical-center
@@ -314,11 +344,8 @@ $card-shadow: 0
   flex-grow: 1
   justify-content: center
 
-.metamasktext
-  color: $metamask
 
-.discordtext
-  color: $discord
+
 
 // Override for use of svg's from https://simpleicons.org/
 .icon svg
@@ -335,12 +362,6 @@ footer.footer
 
 
 
-
-.herometaicon
-  margin-top: 0.5rem
-  height: 2rem
-  width: 2rem
-  fill: #fff
 
 
 .loginscreen
@@ -593,6 +614,7 @@ newsletter
   border-radius: 10px
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1)
   margin: 15px 0
+  margin-bottom: 2rem!important
   justify-content: center!important /* Aligns horizontally */
   align-items: center!important /* Aligns vertically */
   padding: 20px
