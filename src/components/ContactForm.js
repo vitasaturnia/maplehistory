@@ -44,10 +44,10 @@ export default class ContactForm extends React.Component {
                     <div className="hero-body">
 
                         <section className="section has-text-centered social">
-                            <a title="facebook" href="https://facebook.com/saturnusclub">
+                            <a title="facebook" href="https://facebook.com/maplehistory">
                                 <FontAwesomeIcon icon={faFacebook} className="socialiconfooter is-size-5 has-text-primary"/>
                             </a>
-                            <a title="instagram" href="https://www.instagram.com/saturnusclub">
+                            <a title="instagram" href="https://www.discord.gg/maplehistory">
                                 <FontAwesomeIcon icon={faDiscord} className="socialiconfooter is-size-5 has-text-primary"/>
                             </a>
                         </section>
@@ -111,7 +111,7 @@ export default class ContactForm extends React.Component {
                                                         </label>
                                                         <div className="control">
                     <textarea
-                        className="textarea contactinput"
+                        className="textarea input contactinput"
                         name={"message"}
                         onChange={this.handleChange}
                         id={"message"}

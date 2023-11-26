@@ -18,11 +18,19 @@ $body-color: $black
 
 
 $mobilebreakpoint: max-width 688px
-$navbar-box-shadow-color: $black
-$navbar-box-shadow-size: 0.1em
+
+$black: #2A0800 // Assuming $black is already defined
+
+// Targeting .textarea within .container in your ContactForm component
+.container
+  .textarea
+    background-color: lighten($black, 3%) !important
+    resize: none
+
 
 
 .contactinput
+  background-color: lighten-color($black, 3%) !important
   outline: none!important
   border: 0!important
   outline: 0!important
@@ -32,9 +40,10 @@ $navbar-box-shadow-size: 0.1em
   margin: auto
   text-align: center
 
-  select, textarea, input
-    background-color: rgba(25, 25, 25, 0.3)!important
-    border: 1px solid rgba(255, 215, 0, 0.6)!important
+  &:focus
+    border: 1px solid rgba($warning, 0.75) !important
+    box-shadow: none !important
+    resize: none !important
     color: $warning
 
 
@@ -56,13 +65,17 @@ $navbar-box-shadow-size: 0.1em
   color: $gold!important
 
 select, textarea, input, textarea
-  background-color: rgba(25, 25, 25, 0.3)!important
+  background-color: lighten-color($black, 3%) !important
+
+.textarea .input .contactinput
+  background-color: lighten-color($black, 3%) !important
+
 
 option
   background-color: rgba(25, 25, 25, 0.8)!important
 
 input.lightinput
-  background-color: rgba(25, 25, 25, 0.3)!important
+  background-color: lighten-color($black, 3%) !important
   color: $primary!important
   height: 2.5rem!important
   text-align: center!important

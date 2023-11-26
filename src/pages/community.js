@@ -11,8 +11,8 @@ import {
 const Community = () => (
   <Layout>
 
-      <section className="hero is-large is-black">
-          <div className="hero-body">
+      <section className="minheight100">
+          <div className="centeredcontainer">
 
               <div className="title has-text-centered has-text-link">
                   <FontAwesomeIcon icon={faUsers} className="is-size-1 nomargintop"/>
@@ -22,56 +22,29 @@ const Community = () => (
       <div className="columns has-text-centered">
           <div className="column has-text-centered is-one-quarter-tablet-only">
               <div className="title">
-                  <a href="https://discord.gg/DVc9VSAFZr">
-                      <h1 className="has-text-warning ">Discord server</h1>
+                  <a href="https://maplehistory.com">
+                      <h1 className="has-text-warning ">MapleBook</h1>
                   </a>
               </div>
           </div>
           <div className="column has-text-centered">
               <div className="title">
-                  <a href="https://ecency.com/trending/hive-14444">
-                  <h3 className="has-text-warning">Hive community</h3>
+                  <a href="https://discord.com/maplehistory">
+                  <h3 className="has-text-warning">Discord</h3>
                   </a>
               </div>
           </div>
           <div className="column has-text-centered">
               <div className="title">
-                  <a href="https://www.facebook.com/groups/saturniannetwork/edit">
-                  <h3 className="has-text-warning">Facebook group</h3>
+                  <a href="https://www.facebook.com/maplehistory">
+                  <h3 className="has-text-warning">Facebook</h3>
                   </a>
               </div>
           </div>
 
-      </div>
-      <div className="columns has-text-centered">
-          <div className="column has-text-centered">
-              <div className="title">
-                  <a href="https://www.facebook.com/Saturnian-107989921789037/">
-                  <h3 className="has-text-warning">Facebook page</h3>
-                  </a>
-              </div>
-          </div>
-          <div className="column has-text-centered">
-              <div className="title">
-                  <Link to="/forum">
-                  <h3 className="has-text-warning">Saturnian Forum</h3>
-                  </Link>
-              </div>
-          </div>
-          <div className="column has-text-centered">
-              <div className="title">
-                  <a href="https://www.hackforums.net">
-                      <h3 className="has-text-warning">Hackforums crew</h3>
-                  </a>
-              </div>
-          </div>
       </div>
           </div>
       </section>
-
-
-
-
 
   </Layout>
 );

@@ -82,10 +82,10 @@ const Footer = class extends React.Component {
 
 
               <div className="column is-one-third social has-text-warning">
-                <a title="discord" href="https://discord.gg/TcfrdVkdH2">
+                <a title="discord" href="https://discord.gg/maplehistory">
                   <FontAwesomeIcon icon={faDiscord} className="socialiconfooter is-size-1-widescreen has-text-warning"/>
                 </a>
-                <a title="facebook" href="https://www.facebook.com/Saturnian-107989921789037">
+                <a title="facebook" href="https://www.facebook.com/maplehistory">
                   <FontAwesomeIcon icon={faFacebook} className="socialiconfooter has-text-warning is-size-1-widescreen"/>
                 </a>
 
