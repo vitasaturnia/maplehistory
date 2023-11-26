@@ -1,40 +1,26 @@
 import React from "react";
 import Layout from "../components/Layout";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from "gatsby";
-import { useSpring, animated } from "react-spring"; // Import React Spring
-
-import {
-    faUsers,
-} from '@fortawesome/free-solid-svg-icons';
-
+import { faUsers } from '@fortawesome/free-solid-svg-icons';
 
 const Community = () => {
-    // React Spring animation
-    const animationProps = useSpring({
-        opacity: 1,
-        from: { opacity: 0 },
-        config: { duration: 1000 },
-    });
-
     return (
         <Layout>
-            <animated.section className="community-section minheight100" style={animationProps}>
+            <section className="community-section minheight100">
                 <div className="centercontainer has-text-centered has-text-warning">
-
                     <div className="content">
-                                        <p className="subtitle is-large is-bold is-italic has-text-warning">
-
-                                            "In the book of life, you hold the pen. What story will you write today?"
-                                        </p>
+                        <p className="subtitle is-large is-bold is-italic has-text-warning">
+                            "In the book of life, you hold the pen. What story will you write today?"
+                        </p>
                         <p>
                             It all started back in 2006 when I first entered the Maple World
                             playing in Bera. I was just a kid, and it was my best friend Klaas (shout out to you bro!)
-                            who introduced me to this game that became a big part of my life. If I would show a maple character or play any Maplestory song to my mom, she would recognize it without thinking. She definitely started HATING Maplestory music with all the countless hourless she heard me play.
+                            who introduced me to this game that became a big part of my life. If I would show a maple character or play any Maplestory song to my mom, she would recognize it without thinking. She definitely started HATING Maplestory music with all the countless hours she heard me play.
                         </p>
                         <p>
                             Maple Story was my first MMORPG, and when I started playing, it
-                            completely blew my mind. I was used to the browser games, so the endless possibilities
+                            completely blew my mind. I was used to browser games, so the endless possibilities
                             had me hooked from the beginning.
                         </p>
                         <p>
@@ -59,11 +45,11 @@ const Community = () => {
                             So, I invite you to join me on this Maple Story adventure. Join me on this Maple Story adventure, and together, let's explore Maple World, tackle tough challenges, and build a community that truly embodies the spirit of this incredible game. Maple Story isn't just a game; it's a shared experience, and I'm genuinely excited to share it with each and every one of you."
                         </p>
                         <p className="subtitle is-large is-bold is-italic has-text-warning">
-                            "Prepare to embark on a Maple Story journey where we'll write history. Together, lets create a legendary story!"
+                            "Prepare to embark on a Maple Story journey where we'll write history. Together, let's create a legendary story!"
                         </p>
                     </div>
                 </div>
-            </animated.section>
+            </section>
         </Layout>
     );
 };
