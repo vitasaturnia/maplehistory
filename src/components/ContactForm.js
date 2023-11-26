@@ -39,7 +39,6 @@ export default class ContactForm extends React.Component {
     render() {
         return (
             <>
-
                 <section className="hero half">
                     <div className="hero-body">
 

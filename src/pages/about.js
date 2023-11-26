@@ -21,7 +21,6 @@ const Community = () => {
         <Layout>
             <animated.section className="community-section minheight100" style={animationProps}>
                 <div className="centercontainer has-text-centered has-text-warning">
-                    <h1 className="has-text-warning abouttitle title">About Maple History</h1>
 
                     <div className="content">
                                         <p className="subtitle is-large is-bold is-italic has-text-warning">

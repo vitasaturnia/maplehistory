@@ -1,23 +1,23 @@
 import * as React from "react";
 import Layout from "../components/Layout";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Link } from "gatsby";
-
-import {
-    faUsers,
-} from '@fortawesome/free-solid-svg-icons';
+import logo from "../img/leaf.png";
 
 
-const Community = () => (
-  <Layout>
 
-      <section className="is-full-height">
-          <div className="centeredcontainer">
-              <h1 className="title has-text-centered"></h1>
+const Forum = () => (
 
-          </div>
-      </section>
-  </Layout>
+    <Layout>
+        <section className="minheight100">
+            <div className="centeredcontainer ">
+                <div className="has-text-centered">
+                    <img src={logo} className="herologo"/>
+                </div>
+                <div className="title has-text-centered has-text-warning">
+                    <h3 className="">Coming soon</h3>
+                </div>
+            </div>
+        </section>
+    </Layout>
 );
 
-export default Community;
+export default Forum;

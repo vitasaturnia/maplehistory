@@ -1,13 +1,23 @@
 import * as React from "react";
 import Layout from "../components/Layout";
+import logo from "../img/leaf.png";
 
-const NotFoundPage = () => (
-  <Layout>
-    <div>
-      <h1>NOT FOUND</h1>
-      <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
-    </div>
-  </Layout>
+
+
+const Forum = () => (
+
+    <Layout>
+        <section className="minheight100">
+            <div className="centeredcontainer ">
+                <div className="has-text-centered">
+                    <img src={logo} className="herologo"/>
+                </div>
+                <div className="title has-text-centered has-text-warning">
+                    <h3 className="">This page does not exist</h3>
+                </div>
+            </div>
+        </section>
+    </Layout>
 );
 
-export default NotFoundPage;
+export default Forum;

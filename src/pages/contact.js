@@ -7,8 +7,8 @@ import { Link } from "gatsby";
 
 const Community = () => (
   <Layout>
-
       <section className="minheight100">
+
           <div className="centeredcontainer">
 
               <ContactForm/>

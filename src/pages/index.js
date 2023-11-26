@@ -2,8 +2,6 @@ import React from 'react';
 import { navigate } from "gatsby-link";
 import Layout from "../components/Layout";
 import { Link, graphql } from "gatsby";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import logo from "../img/fenixlogo2.png";
 
 const Index = () => {
     return (
