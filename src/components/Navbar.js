@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, navigate } from "gatsby";
-import logo from "../img/maple.png";
+import logo from "../img/mushroom.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { auth } from '../../firebase'; // Ensure this path is correct
@@ -50,8 +50,8 @@ const Navbar = () => {
         <div className="container">
           <div className="column">
             <div className="navbar-brand">
-              <Link to="/" className="navbar-item" title="Logo">
-                <img src={logo} alt="MapleHistory" className=" " />
+              <Link to="/" className="navbar-item" title="logo">
+                <img src={logo} alt="MapleHistory" className="logoclass" />
               </Link>
               {/* Hamburger menu */}
               <div
@@ -86,9 +86,6 @@ const Navbar = () => {
                 <Link className="navbar-item" to="/feed">
                   Maple Book
                 </Link>
-                <Link className="navbar-item" to="/forum">
-                  Forum
-                </Link>
                 <Link className="navbar-item" to="/contact">
                   Contact
                 </Link>
@@ -99,7 +96,7 @@ const Navbar = () => {
                 {/* Dropdown */}
                 <div className="navbar-item has-dropdown is-hoverable" ref={dropdownRef}>
                   <a className="navbar-link" onClick={toggleDropdown}>
-                    <FontAwesomeIcon icon={faUser} className="is-size-5 has-text-warning" />
+                    <FontAwesomeIcon icon={faUser} className="is-size-5 has-text-warning accountsymbol" />
                   </a>
                   <div className="navbar-dropdown" style={{ backgroundColor: 'black' }}>
                     {user ? (

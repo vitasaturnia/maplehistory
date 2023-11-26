@@ -42,7 +42,7 @@ const Footer = class extends React.Component {
                     </li>
                     <li>
                       <Link className="navbar-item has-text-warning" to="/myhistory">
-                        My History
+                        Maple Book
                       </Link>
                     </li>
                   </ul>
@@ -57,11 +57,6 @@ const Footer = class extends React.Component {
                     <li>
                       <Link className="navbar-item has-text-warning" to="/guild">
                         Guild
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="navbar-item has-text-warning" to="/forum">
-                        Forum
                       </Link>
                     </li>
                     <li>
