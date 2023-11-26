@@ -1,10 +1,13 @@
 import React from 'react';
-import FeedGenerator from '../components/FeedGenerator'; // Adjust the path as per your project structure
+import FeedGenerator from '../components/FeedGenerator';
+import CreatePostMini from '../components/CreatePostMini';
+
 import Layout from "../components/Layout";
 export default function FeedPage() {
     return (
         <Layout>
-        <div className="feed-page has-text-centered">
+        <div className="has-text-centered">
+            <CreatePostMini/>
             <FeedGenerator />
         </div>
         </Layout>

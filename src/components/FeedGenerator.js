@@ -6,7 +6,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { getAuth } from "firebase/auth";
 import { useTransition, animated } from 'react-spring';
 
-const POSTS_PER_PAGE = 1;
+const POSTS_PER_PAGE = 3;
 
 export default function FeedGenerator() {
     const [posts, setPosts] = useState([]);

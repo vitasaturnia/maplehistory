@@ -52,7 +52,7 @@ $navbar-box-shadow-size: 0
   @return darken($color, $percent)
 
 input
-  background-color: lighten-color($black, 3%)!important // Lighten the background color by 30%
+  background-color: lighten-color($black, 3%) // Lighten the background color by 30%
   width: 33vw // Set width to 33% of the viewport width
   text-align: center // Center all text and input
   color: $warning // Keep the text color as it was
@@ -377,7 +377,7 @@ footer.footer
 .postarea
   background-color: lighten-color($black, 3%) !important
   width: 33vw !important
-  height: 25vh !important
+  height: 25vh
   text-align: center !important
   color: $warning !important
   padding: 1rem
@@ -389,6 +389,8 @@ footer.footer
   position: relative
   opacity: 0.5
   resize: none !important
+
+
 
   &::placeholder
     position: absolute
@@ -402,9 +404,22 @@ footer.footer
     resize: none !important
 
 
+// mini
+
+.level-item i
+  font-size: 1.5em  // Adjust the size as needed
+  cursor: pointer
+  margin: 0 10px
 
 
 
+.mini
+  height: 1.5em !important
+  min-height: 1.5em !important
+  width: 8em !important
+  min-width: 8em!important
+  margin-top: 0 !important
+  padding-top: 0 !important
 
 .loginbutton
   width: 4em
@@ -572,7 +587,7 @@ newsletter
   max-height: 96px
   max-width: 96px
 
-/* custom-navbar.css
+
 
 /* Styles for the mobile dropdown
 
