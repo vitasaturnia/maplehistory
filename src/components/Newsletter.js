@@ -13,7 +13,7 @@ const Newsletter = () => (
                 <h1 className="subtitle has-text-warning">
                     Want to stay up to date?
                 </h1>
-                <div className="newslettercontainer as-text-warning">
+                <div className="newslettercontainer has-text-warning">
                     <input className="newsletterinput" type="text" placeholder="Email"/>
                     <FontAwesomeIcon className="orangeicon is-large"  icon={faEnvelope} />
                 </div>

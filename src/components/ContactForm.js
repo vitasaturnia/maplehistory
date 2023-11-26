@@ -45,10 +45,10 @@ export default class ContactForm extends React.Component {
 
                         <section className="section has-text-centered social">
                             <a title="facebook" href="https://facebook.com/maplehistory">
-                                <FontAwesomeIcon icon={faFacebook} className="socialiconfooter is-size-5 has-text-primary"/>
+                                <FontAwesomeIcon icon={faFacebook} className="socialiconfooter has-text-primary" size="3x"/>
                             </a>
                             <a title="instagram" href="https://www.discord.gg/maplehistory">
-                                <FontAwesomeIcon icon={faDiscord} className="socialiconfooter is-size-5 has-text-primary"/>
+                                <FontAwesomeIcon icon={faDiscord} className="socialiconfooter has-text-primary" size="3x"/>
                             </a>
                         </section>
 

@@ -1,14 +1,11 @@
 import * as React from "react";
 import { Link } from "gatsby";
-import quetzalcoatl from "../img/quetzalcoatl.png";
+import char from "../img/char.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
   faDiscord,
   faFacebook,
-  faHive,
-  faTwitter
-
 } from '@fortawesome/free-brands-svg-icons';
 
 
@@ -36,13 +33,8 @@ const Footer = class extends React.Component {
                       </Link>
                     </li>
                     <li>
-                      <Link className="navbar-item has-text-warning" to="/wiki">
-                        Wiki
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="navbar-item has-text-warning" to="/myhistory">
-                        Maple Book
+                      <Link className="navbar-item has-text-warning" to="/community">
+                        Community
                       </Link>
                     </li>
                   </ul>
@@ -50,13 +42,13 @@ const Footer = class extends React.Component {
                 <div className="column is-half has-text-centered">
                   <ul className="menu-list">
                     <li>
-                      <Link className="navbar-item has-text-warning" to="/community">
-                        Community
+                      <Link className="navbar-item has-text-warning" to="/wiki">
+                        Wiki
                       </Link>
                     </li>
                     <li>
-                      <Link className="navbar-item has-text-warning" to="/guild">
-                        Guild
+                      <Link className="navbar-item has-text-warning" to="/myhistory">
+                        Maple Book
                       </Link>
                     </li>
                     <li>
@@ -72,10 +64,10 @@ const Footer = class extends React.Component {
               <div className="column is-one-third social has-text-warning ">
                 <div className="content has-text-centered">
                 <img
-                    src={quetzalcoatl}
+                    src={char}
                     alt="Maple History"
                     className=""
-                    style={{ width: "14em", height: "10em" }}
+                    style={{ width: "auto", height: "8rem" }}
                 />
               </div>
               </div>
