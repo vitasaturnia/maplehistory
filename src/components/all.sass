@@ -597,7 +597,6 @@ newsletter
   position: absolute
   top: 100%
   right: 0
-  background-color: #fff
   border: 1px solid #ccc
   border-radius: 4px
   z-index: 1
@@ -606,19 +605,62 @@ newsletter
   &.is-active
     display: block!important
 
-
-@media screen and (max-width: 768px)
-  .navbar-dropdown
-    display: none
-
-
-.navbar .navbar-menu .navbar-dropdown.is-active
-  display: block!important
-
 // Media Query for Mobile Devices
 @media screen and (max-width: 768px)
-  .mobile-dropdown
-    background-color: transparent // Or match your site's background color
+  // Hide the dropdown trigger
+  .navbar .navbar-end .has-dropdown .navbar-link
+    display: none
+
+  // Style the dropdown container
+  .navbar .navbar-end .has-dropdown .navbar-dropdown
+    display: block
+    position: static
+    background-color: transparent !important
+    border: none
+    margin: 0
+    padding: 0
+    box-shadow: none
+
+  // Style dropdown items to stack vertically like other menu items
+  .navbar .navbar-end .has-dropdown .navbar-dropdown > .navbar-item
+    display: block
+    width: 100%
+    background-color: transparent !important
+    border: none
+    margin: 0
+    padding: 0.5rem 0
+    color: inherit
+
+
+// Media Query for Mobile Devices
+// Media Query for Mobile Devices
+@media screen and (max-width: 768px)
+  // Hide the dropdown trigger
+  .navbar .navbar-end .has-dropdown .navbar-link
+    display: none
+
+  // Style the dropdown container
+  .navbar .navbar-end .has-dropdown .navbar-dropdown
+    display: block
+    position: static
+    background-color: transparent
+    border: none
+    padding: 0
+    box-shadow: none
+    margin: 0 // Ensure there's no extra margin
+
+  // Style dropdown items to stack vertically like other menu items
+  .navbar .navbar-end .has-dropdown .navbar-dropdown > .navbar-item
+    display: block
+    width: 100%
+    background-color: transparent
+    border: none
+    padding: 0.5rem 0 // Adjust padding to match other items
+    margin: 0 // Remove any default margin
+    box-shadow: none // Ensure no shadow
+    color: inherit // Inherit color from parent
+
+
 // Other properties can remain the same or be adjusted as needed
 
 
