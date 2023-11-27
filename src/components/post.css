@@ -97,10 +97,8 @@
 .post-content {
   display: flex;
   justify-content: center; /* Horizontaal centreren */
-  align-items: center; /* Verticaal centreren */
-  text-align: center; /* Tekst centreren */
-  margin-top: 8vw;
-  margin-bottom: 15px;
+  margin-top: auto;
+  margin-bottom: auto;
   max-height: 33vw; /* Max hoogte beperken */
   overflow-y: auto; /* Verticale scroll indien nodig */
   font-size: 1rem;
@@ -228,8 +226,9 @@
 /* Hover effect to change text color to #E6AF2E */
 .post-container
 .post-container
-.post-container .username:hover {
-  color: #E6AF2E;
+.post-container
+ {
+  color: #E6AF2E!important;
 }
 
 /* Additional hover effect for options bar buttons */
@@ -241,6 +240,11 @@ button:hover .svg-inline--fa {
 .inputborderfocus:focus {
   border-color: #E6AF2E;
 }
+
+.username:hover {
+  color: #E6AF2E!important;
+}
+
 
 
 .options-bar button.like-button {
