@@ -40,7 +40,7 @@ const Footer = class extends React.Component {
                   </ul>
                 </div>
                 <div className="column is-half has-text-centered">
-                  <ul className="menu-list">
+                  <ul className="footer-list">
                     <li>
                       <Link className="navbar-item has-text-warning" to="/wiki">
                         Wiki

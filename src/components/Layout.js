@@ -6,6 +6,8 @@ import Newsletter from "./Newsletter";
 import useSiteMetadata from "./SiteMetadata";
 import { withPrefix } from "gatsby";
 import "./all.sass";
+
+
 import FadeInWrapper from '../components/FadeInWrapper'; // Import FadeInWrapper
 
 const TemplateWrapper = ({ children }) => {
