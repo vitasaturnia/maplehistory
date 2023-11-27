@@ -69,7 +69,7 @@ const Navbar = () => {
             </div>
           </div>
           <div id="navMenu" className={`navbar-menu ${active ? "is-active" : ""}`}>
-            <div className="column">
+            <div className="column flexbasisauto">
               <div className="navbar-start has-text-centered">
                 <Link className="navbar-item" to="/about">
                   About
@@ -101,6 +101,8 @@ const Navbar = () => {
                   <div className="navbar-dropdown" style={{ backgroundColor: 'black' }}>
                     {user ? (
                         <>
+                          <div className="perfectcenter">
+
                           <Link to="/myprofile" className="navbar-item">
                             My Profile
                           </Link>
@@ -110,6 +112,7 @@ const Navbar = () => {
                           <a className="navbar-item" onClick={handleSignOut}>
                             Logout
                           </a>
+                          </div>
                         </>
                     ) : (
                         <Link to="/login" className="navbar-item">

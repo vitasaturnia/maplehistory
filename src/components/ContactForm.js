@@ -39,19 +39,8 @@ export default class ContactForm extends React.Component {
     render() {
         return (
             <>
-                <section className="hero half">
-                    <div className="hero-body">
 
-                        <section className="section has-text-centered social">
-                            <a title="facebook" href="https://facebook.com/maplehistory">
-                                <FontAwesomeIcon icon={faFacebook} className="socialiconfooter has-text-primary" size="3x"/>
-                            </a>
-                            <a title="instagram" href="https://www.discord.gg/maplehistory">
-                                <FontAwesomeIcon icon={faDiscord} className="socialiconfooter has-text-primary" size="3x"/>
-                            </a>
-                        </section>
-
-                        <div className=" has-text-centered is-block is-quarterscreen">
+                        <div className="has-text-centered is-block is-quarterscreen">
                             <div className="container">
                                 <div className="content">
                                     <div className="section">
@@ -130,8 +119,6 @@ export default class ContactForm extends React.Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
             </>
         );
     };

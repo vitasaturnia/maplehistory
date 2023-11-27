@@ -20,31 +20,26 @@ const Community = () => {
                         </p>
                         <p>
                             Maple Story was my first MMORPG, and when I started playing, it
-                            completely blew my mind. I was used to browser games, so the endless possibilities
-                            had me hooked from the beginning.
+                            was amazed. I was used to browser games, so all these possibilities and different things you could do in a game
+                            just seemed unreal.
                         </p>
                         <p>
-                            God, however, operates in mysterious ways. I soon had
-                            to move to a different city.
-                            And funny enough, I met another mapler at my new school. Shout out to you Shahin!
-                            He was playing Scania EU so I started playing EU server too. At the time as an assassin.
-                        </p>
-                        <p>
-                            Fast forward to a life-changing moment on November 5th. I had a
+                            I was playing off and on, making both irl friends through Maplestory, and meeting ingame friends through Maple.
+                            Unfortunately life gets in the way and i stopped playing. But then fast forward to 2023, I had a
                             motorcycle accident that left me unable to move my leg for two
                             weeks. I hit rock bottom, thinking I was never gonna walk again. During those days, Maplestory was my only source of happiness.
                         </p>
                         <p>
-                            After recovering, I decided to take my Maple Story
-                            journey to the next level. I want to reach endgame,
-                            but more than that, I want to build a vibrant Maple Story community.
+                            After recovering, I decided to take this
+                            to the next level. I want to reach endgame,
+                            but more than that, I want to build a Maple Story community.
                             Maple for me has always been social more than anything, meeting new people, PQ runs, boss runs, quests. I think it's a
                             social game at its core, and from that rose my vision.
                         </p>
                         <p>
                             So, I invite you to join me on this Maple Story adventure. Join me on this Maple Story adventure, and together, let's explore Maple World, tackle tough challenges, and build a community that truly embodies the spirit of this incredible game. Maple Story isn't just a game; it's a shared experience, and I'm genuinely excited to share it with each and every one of you."
                         </p>
-                        <p className="subtitle is-large is-bold is-italic has-text-warning">
+                        <p className="subtitle is-large is-bold is-italic has-text-warning mb-3">
                             "Prepare to embark on a Maple Story journey where we'll write history. Together, let's create a legendary story!"
                         </p>
                     </div>

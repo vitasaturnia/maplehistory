@@ -1,13 +1,40 @@
-.container {
-    text-align: center;
+/* Remove duplicates and unused code */
+
+.input-container {
+    position: relative;
+    align-items: center;
+}
+
+.custom-input {
+    padding-right: 40px; /* Adjust the padding to accommodate the icon */
+    width: 100%;
+    padding: 10px;
+    background: #F5E8A5;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    transition: background-color 0.2s;
+}
+
+.custom-input:hover {
+    background: #E6AF2E;
+}
+
+.icon.fa-paper-plane {
+    position: absolute;
+    right: 3px; /* Adjust the right position as needed */
+    cursor: pointer;
+    width: 1em;
+    height: auto;
+    color: #6c757d;
 }
 
 .custom-box {
-    max-width: 600px;
-    width: 100%;
+    max-width: 400px; /* Make the box scale with the viewport width */
+    width: 400px; /* Adjust the width as needed */
     height: auto;
     position: relative;
-    display: inline-block;
+    display: block; /* Change to block to make it responsive */
     background: #E7BF7E;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -17,23 +44,10 @@
     margin-left: auto;
 }
 
-.custom-input {
-    width: 100%;
-    padding: 10px;
-    background: #F5E8A5; /* Input background color */
-    border: none;
-    border-radius: 10px;
-    outline: none;
-    transition: background-color 0.2s;
-}
-
-.custom-input:hover {
-    background: #E6AF2E; /* Input background color on hover */
-}
-
 .options {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column; /* Stack options vertically on smaller screens */
+    justify-content: center;
     margin-top: 10px;
 }
 
@@ -47,7 +61,7 @@
 }
 
 .option-button:hover {
-    color: #E7BF7E; /* Text color on hover */
+    color: #E7BF7E;
 }
 
 .icon-bar {
@@ -106,4 +120,11 @@
     margin-bottom: 10px;
     transition: background-color 0.3s ease;
     cursor: none;
+}
+
+/* Responsive CSS */
+@media screen and (max-width: 768px) {
+    .custom-box {
+        width: 85vw; /* Adjust the width for smaller screens */
+    }
 }

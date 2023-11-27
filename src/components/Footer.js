@@ -68,6 +68,9 @@ const Footer = class extends React.Component {
                       alt="MapleHistory"
                       placeholder="blurred"
                       layout="fixed"
+                      width={49}
+                      height={72}
+
                       className="footerlogo"
 
                   />

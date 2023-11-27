@@ -74,27 +74,27 @@ const Login = () => {
 
     return (
         <div className="centeredcontainer has-text-centered">
-            <h1 className="title has-text-warning">Login</h1>
+            <h1 className="title mb-2 has-text-warning">Login</h1>
             <Link to="/register">
-                <p className="subtitle is-5 has-text-warning is-italic">Don't have an account? Register here!</p>
+                <p className="mb-3 subtitle is-5 has-text-warning is-italic">Don't have an account? Register here!</p>
             </Link>
             <form onSubmit={handleLogin}>
                 <div>
-                    <label className="has-text-warning">Email:</label>
+                    <label className="mb-3 has-text-warning">Email:</label>
                     <br />
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input className="mt-1em mb-3 redinput" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <div>
-                    <label className="has-text-warning">Password:</label>
+                    <label className="mb-3 mt-1em has-text-warning">Password:</label>
                     <br />
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <input className="mt-1em redinput" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </div>
                 <br />
                 <button className="button is-warning is-outlined" type="submit" disabled={loading}>
                     {loading ? 'Logging in...' : 'Log In'}
                 </button>
             </form>
-            <p className="has-text-link" style={{ cursor: 'pointer' }} onClick={handlePasswordReset}>
+            <p className="has-text-link mt-1em" style={{ cursor: 'pointer' }} onClick={handlePasswordReset}>
                 Forgot your password? Reset it here.
             </p>
             {error && <p style={{ color: 'red' }}>{error}</p>}

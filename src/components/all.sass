@@ -56,18 +56,43 @@ input
   width: 33vw // Set width to 33% of the viewport width
   text-align: center // Center all text and input
   color: $warning // Keep the text color as it was
+  padding: 0.5em
+
+
+@media screen and (max-width: 768px)
+  input
+    min-width: 50vw!important
+
+
 
 .newsletterinput
-  background-color: $link!important // Lighten the background color by 30%
-  border: 0.1px solid $gold
+
+  box-shadow: none !important
+  background-color: lighten-color($link, 3%) !important
+  border: 1px solid rgba($warning, 0.25) !important
+
+
+
 
 .newslettercontainer
   display: flex
   align-items: center
   justify-content: center /* Horizontally center the container */
 
+
+.newslettercontainer
+  display: flex
+  justify-content: center
+  align-items: center
+
+  .newsletterinput
+    margin-right: 10px
+  // Add any additional styling for the input here
+
+
+
 .orangeicon
-  height: 1.1rem!important
+  height: 1.5rem!important
 
 
 
@@ -83,6 +108,12 @@ input
 
   &.liked
     color: #3CB371!important // Crimson (Deep red for liked)
+
+
+
+
+input.contactinput
+    background-color: lighten-color($black, 3%)!important
 
 
 
@@ -233,14 +264,7 @@ input
 .littlemarginbottom
   margin: 0.5em
 
-.full-width-image
-    width: 100vw
-    height: 600px
-    background-size: container
-    background-position: bottom
-    justify-content: center
-    align-items: center
-    margin-bottom: 0px
+
 
 .fullscreen
   margin-left: 12%
@@ -254,7 +278,7 @@ input
 
 .is-full-width
   min-width: 100vw!important
-  width: 100vwvw!important
+  width: 100vw!important
 
 .minheight100
   min-height: calc(100vh - 4.75em)
@@ -285,6 +309,11 @@ input
   background-color: red
   color: white
 
+.mt-2em
+  margin-top: 2em!important
+
+.mt-1em
+  margin-top: 1em!important
 
 .is-full-height
   height: 100vh!important
@@ -353,6 +382,30 @@ $card-shadow: 0
   flex-grow: 1
   justify-content: center
 
+// avoids buggy situation where navbar links are not centered
+
+
+
+// make a class that overrides the flex basis setting on bulma css to auto on element .navbar-start, while being very specific so that it will not be overwritten by bulma css
+
+
+
+.navbar
+  .column
+    flex-basis: auto !important
+
+
+/* Center the Navbar */
+.navbar
+  display: flex!important
+  justify-content: space-between!important
+  align-items: center!important
+
+/* Center the middle and right columns */
+.navbar-start, .navbar-end
+  display: flex!important
+  align-items: center!important
+
 
 
 
@@ -367,6 +420,13 @@ footer.footer
 
   padding: 3rem 0rem 0rem
   background-color: transparent
+
+
+input.redinput,
+select.redinput,
+textarea.redinput
+  background-color: lighten-color($black, 3%) !important
+  border: 1px solid rgba($warning, 0.25) !important
 
 
 
@@ -391,6 +451,10 @@ footer.footer
   position: relative
   opacity: 0.5
   resize: none !important
+
+  @media screen and (max-width: 768px)
+    width: 85vw!important
+    height: 50vh!important
 
 
 
@@ -559,6 +623,7 @@ input
 newsletter
   background-color: $black
   color: $black
+
 
 
 
@@ -819,6 +884,38 @@ $gold: #E6AF2E
 
 /* Styles for the mobile dropdown toggle button
 
+.navbar-menu
+  display: flex
+  justify-content: space-between /* Distribute space evenly between start and end */
+  align-items: center /* Vertically center items */
+
+
+.navbar-start, .navbar-end
+  display: flex
+  align-items: center
+
+
+// attempt to fix navbar
+.navbar-menu
+  display: flex
+  justify-content: space-between // Distribute space evenly between start and end
+  align-items: center // Vertically center items
+
+.navbar-start, .navbar-end
+  display: flex
+  align-items: center
+
+
+.navbar-item
+  margin: 0 // Remove margin
+  padding: 0 // Remove padding
+
+  .navbar-dropdown
+    &.navbar-item
+      margin-top: 0.5rem // Add a small top margin for spacing
+
+.perfectcenter
+  width: 100vw!important
 
 @import "~bulma"
 

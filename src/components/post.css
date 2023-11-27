@@ -9,7 +9,7 @@
 
 /* Individual post container */
 .post-container {
-  max-width: 600px;
+  max-width: 400px;
   width: 100%;
   height: auto;
   min-height: 33vw;
@@ -216,7 +216,6 @@
   padding: 10px; /* Adjust padding as needed */
   cursor: pointer;
   color: #6c757d; /* Adjust color as needed */
-  transition: color 0.3s ease; /* Added hover effect */
 }
 
 .input-group {
@@ -227,8 +226,8 @@
 
 
 /* Hover effect to change text color to #E6AF2E */
-.post-container .button:hover,
-.post-container .peperplant:hover,
+.post-container
+.post-container
 .post-container .username:hover {
   color: #E6AF2E;
 }
