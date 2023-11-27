@@ -149,10 +149,6 @@ export default function FeedGenerator() {
                     />
                 </animated.div>
             ))}
-            <div ref={loadingRef} className="loading-indicator">
-                {loading && <p>Loading more posts...</p>}
-            </div>
-            {!hasMore && <div className="end-of-feed">End of Feed</div>}
         </div>
     );
 }

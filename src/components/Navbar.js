@@ -69,7 +69,7 @@ const Navbar = () => {
             </div>
           </div>
           <div id="navMenu" className={`navbar-menu ${active ? "is-active" : ""}`}>
-            <div className="column">
+            <div className="column nvmm">
               <div className="navbar-start has-text-centered">
                 <Link className="navbar-item" to="/about">
                   About
@@ -91,7 +91,7 @@ const Navbar = () => {
                 </Link>
               </div>
             </div>
-            <div className="column">
+            <div className="column nvmm">
               <div className="navbar-end has-text-centered">
                 {/* Dropdown */}
                 <div className="navbar-item has-dropdown is-hoverable" ref={dropdownRef}>

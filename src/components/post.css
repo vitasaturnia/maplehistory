@@ -177,9 +177,7 @@
   transition: color 0.3s ease;
 }
 
-.options-bar button:hover {
-  color: #007bff;
-}
+
 
 /* Styles for comments section */
 .comments-section {
@@ -233,13 +231,23 @@
 
 /* Additional hover effect for options bar buttons */
 
-button:hover .svg-inline--fa {
-  color: #E6AF2E;
+
+
+/* Apply a scale effect to the text and icon within options-bar button on hover */
+.options-bar button:hover .buttonglow {
+  transform: scale(1.15); /* Enlarge on hover */
+  transition: transform 0.3s ease; /* Smooth scaling transition */
 }
 
-.inputborderfocus:focus {
-  border-color: #E6AF2E;
+/* Transition for scaling back to original size */
+.options-bar button .buttonglow {
+  transform: scale(1); /* Initial scale set to 1 */
+  transition: transform 0.6s ease;
 }
+
+
+
+
 
 .username:hover {
   color: #E6AF2E!important;

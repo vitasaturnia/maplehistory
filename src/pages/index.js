@@ -27,17 +27,17 @@ const Index = () => {
 
                 <div className="columns ">
                     <div className="column has-text-centered">
-                        <h3 className="is-size-2 subtitle has-text-weight-semibold has-text-warning">
+                        <h3 className="is-size-3 subtitle has-text-weight-semibold has-text-warning">
                             Create an Army
                         </h3>
                         <p>
-                            The time has come. It's time to join forces with fellow Maplers.
+                            The time is here. It's time to join forces with your fellow Maplers.
                             <br/>
                             "Unity is power."
                         </p>
                     </div>
                     <div className="column has-text-centered">
-                        <h3 className="is-size-2 subtitle has-text-weight-semibold has-text-warning">
+                        <h3 className="is-size-3 subtitle has-text-weight-semibold has-text-warning">
                             For the Cause
                         </h3>
                         <p>

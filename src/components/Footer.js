@@ -20,7 +20,7 @@ const Footer = class extends React.Component {
             <div style={{ maxWidth: "100vw" }} className="columns">
               <div className="column is-one-third ">
                 <div className="columns">
-                <div className="column is-half has-text-centered">
+                <div className="column nvmm is-half has-text-centered">
                   <ul className="menu-list">
                     <li>
                       <Link className="navbar-item has-text-warning" to="/about">
@@ -39,7 +39,7 @@ const Footer = class extends React.Component {
                     </li>
                   </ul>
                 </div>
-                <div className="column is-half has-text-centered">
+                <div className="column nvmm is-half has-text-centered">
                   <ul className="footer-list">
                     <li>
                       <Link className="navbar-item has-text-warning" to="/wiki">
