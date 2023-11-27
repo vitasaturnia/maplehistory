@@ -3,6 +3,9 @@
 }
 
 .custom-box {
+    max-width: 600px;
+    width: 100%;
+    height: auto;
     position: relative;
     display: inline-block;
     background: #E7BF7E;
@@ -12,7 +15,6 @@
     transition: background-color 0.2s;
     margin-right: auto;
     margin-left: auto;
-    width: 33vw;
 }
 
 .custom-input {

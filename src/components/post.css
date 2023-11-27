@@ -1,0 +1,258 @@
+/* Assuming Bulma's basic structure and classes are in use */
+
+/* Container for the entire feed or page */
+.feed-container {
+  position: relative;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Individual post container */
+.post-container {
+  max-width: 600px;
+  width: 100%;
+  height: auto;
+  min-height: 33vw;
+  margin-bottom: 30px;
+  padding: 20px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  background-color:   #FAF9F5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow for elevation */
+  border: 2px double #E7BF7E; /* Double border with theme color */
+
+}
+
+
+
+/* Media Query voor Mobiele Apparaten */
+@media screen and (max-width: 768px) { /* Aanpassen voor specifieke breakpoint */
+  .post-container {
+    /* Behoud breedte-instellingen indien nodig */
+    min-height: 85vh; /* Bijvoorbeeld 50% van de schermhoogte */
+    /* Andere stijlen specifiek voor mobiele apparaten */
+  }
+
+  /* Eventuele aanvullende aanpassingen voor mobiele apparaten */
+}
+
+/* Styling for the post header */
+.post-header {
+  text-align: center;
+  margin-bottom: 15px;
+  position: relative;
+  display: flex;
+  justify-content: space-between; /* Zorgt ervoor dat items worden verdeeld over de volle breedte */
+}
+
+
+
+.username {
+  font-size: 16px;
+  color: #333;
+  /* Positioneer aan de linkerkant */
+}
+
+.post-date {
+  font-size: 14px;
+  color: #666;
+  /* Positioneer aan de rechterkant */
+}
+
+
+
+
+.username {
+  font-size: 16px; /* Adjust as needed */
+  color: #333; /* Adjust as needed */
+  /* Additional styling for username */
+}
+
+.post-date {
+  font-size: 14px; /* Adjust as needed */
+  color: #666; /* Adjust as needed */
+  /* Additional styling for post date */
+}
+
+.profile-pic {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  margin: 6px auto!important; /* Center the profile pic horizontally */
+
+  background-color: #ccc;
+  margin-right: 10px; /* Added margin to push the profile pic to the left */
+}
+
+.post-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #3a3b3c;
+  padding-top: 30px;
+}
+
+.post-content {
+  display: flex;
+  justify-content: center; /* Horizontaal centreren */
+  align-items: center; /* Verticaal centreren */
+  text-align: center; /* Tekst centreren */
+  margin-top: 8vw;
+  margin-bottom: 15px;
+  max-height: 33vw; /* Max hoogte beperken */
+  overflow-y: auto; /* Verticale scroll indien nodig */
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #4a4a4a;
+  position: relative;
+}
+
+
+.comment-bubble {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  word-break: break-word;
+}
+
+.comment-bubble p {
+  text-align: center;
+  margin: 0;
+}
+
+
+.more-comments{
+  text-align: center; /* Centreert de tekst "Meer reacties" */
+  margin-bottom: 15px; /* Creëert ruimte boven de input group */
+}
+
+
+
+.more-comments, .respond {
+  text-align: center;
+  margin: 10px 0;
+  font-weight: bold;
+  color: #555;
+}
+
+.input-group {
+  margin-top: 15px!important;
+  position: relative; /* Maakt de positionering van het icoon mogelijk */
+  /* Andere stijlen voor input-group */
+}
+
+.input-group input,
+.input-group button {
+  margin: 0;
+  padding: 0;
+  /* Andere stijlen voor input en button */
+}
+
+.comment-arrow {
+  position: absolute;
+  left: 50%; /* Centreert het icoon horizontaal */
+  top: -10px; /* Pas deze waarde aan om het icoon boven de balk te plaatsen */
+  transform: translateX(-50%) rotate(90deg); /* Centreert en draait het icoon */
+  font-size: 1.5em;
+  color: #000; /* Of een andere kleur naar keuze */
+}
+
+/* Styling for the options bar */
+.options-bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+  margin-top: auto;
+}
+
+.options-bar button {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #6c757d;
+  transition: color 0.3s ease;
+}
+
+.options-bar button:hover {
+  color: #007bff;
+}
+
+/* Styles for comments section */
+.comments-section {
+  width: 100%;
+  padding: 5px;
+  max-height: 50%; /* Maximaal 50% van de hoogte van de post-container */
+  overflow-y: auto; /* Voegt een scrollbar toe als er te veel reacties zijn */
+
+}
+
+
+
+.input-group input {
+  flex-grow: 1;
+  padding: 10px;
+  border: none; /* Removes the border from the input field itself */
+  background-color: transparent; /* Keeps the input background transparent */
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+}
+
+.input-group .fa-paper-plane {
+  margin-left: 10px; /* Ruimte tussen inputveld en icoon */
+  /* Eventuele andere stijlen voor het icoon */
+}
+
+.input-group button {
+  position: absolute;
+  right: 0; /* Aligns the button to the right edge */
+  background: none;
+  border: none;
+  padding: 10px; /* Adjust padding as needed */
+  cursor: pointer;
+  color: #6c757d; /* Adjust color as needed */
+  transition: color 0.3s ease; /* Added hover effect */
+}
+
+.input-group {
+  position: relative; /* Nodig voor absolute positionering van het icoon */
+  display: flex; /* Om input en icoon naast elkaar te plaatsen */
+  align-items: center; /* Centreert items verticaal */
+}
+
+
+/* Hover effect to change text color to #E6AF2E */
+.post-container .button:hover,
+.post-container .peperplant:hover,
+.post-container .username:hover {
+  color: #E6AF2E;
+}
+
+/* Additional hover effect for options bar buttons */
+
+button:hover .svg-inline--fa {
+  color: #E6AF2E;
+}
+
+.inputborderfocus:focus {
+  border-color: #E6AF2E;
+}
+
+
+.options-bar button.like-button {
+  color: #b22222;  /* Gucci red for Like icon */
+}
+
+.options-bar button.comment-button {
+  color: #FFC300; /* Darker yellow for Comment icon */
+}
+
+.options-bar button.share-button {
+  color: #27AE60; /* Gucci green for Share icon */
+}
+

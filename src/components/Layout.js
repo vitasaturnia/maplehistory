@@ -9,14 +9,14 @@ import "./all.sass";
 import FadeInWrapper from '../components/FadeInWrapper'; // Import FadeInWrapper
 
 const TemplateWrapper = ({ children }) => {
-    const { title, description } = useSiteMetadata();
+    const { } = useSiteMetadata();
 
     return (
         <>
             <Helmet>
                 <html lang="en" />
-                <title>{title}</title>
-                <meta name="description" content={description} />
+                <title>MapleHistory</title>
+                <meta name="description" content="Writing Maple History" />
 
                 <link
                     rel="apple-touch-icon"
@@ -43,8 +43,7 @@ const TemplateWrapper = ({ children }) => {
                 />
                 <meta name="theme-color" content="#fff" />
 
-                <meta property="og:type" content="business.business" />
-                <meta property="og:title" content={title} />
+                <meta property="og:title" content="MapleHistory" />
                 <meta
                     property="og:image"
                     content={`${withPrefix("/")}img/maplestoryog.png`}

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { collection, query, orderBy, onSnapshot, startAfter, limit, doc, setDoc, updateDoc, serverTimestamp, increment, deleteDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { getAuth } from "firebase/auth";
 import { useTransition, animated } from 'react-spring';
-import PostWithComments from './PostWithComments'; // Adjust the path as necessary
 
 const POSTS_PER_PAGE = 3;
 
@@ -138,15 +139,37 @@ export default function FeedGenerator() {
     return (
         <div className="feed-container minheight100">
             {transitions((styles, post) => (
-                <animated.div style={styles} key={post.id}>
-                    <PostWithComments
-                        username={post.username ? post.username : 'Unknown User'}
-                        postDate={new Date(post.timestamp.seconds * 1000).toLocaleString()}
-                        content={post.content}
-                        isLiked={isPostLiked(post.id)}
-                        onLike={() => likePost(post.id)}
-                        onUnlike={() => unlikePost(post.id)}
-                    />
+                <animated.div style={styles} className="post-card" key={post.id}>
+                    <div className="mobilepostcontent">
+                        <h3 className="post-title">{post.title}</h3>
+                        <div className="like-icons">
+                            <FontAwesomeIcon
+                                icon={faHeart}
+                                className={`heart-icon icon ${isPostLiked(post.id) ? 'liked' : ''}`}
+                                onClick={() => isPostLiked(post.id) ? unlikePost(post.id) : likePost(post.id)}
+                            />
+                        </div>
+                        <p className="post-meta">
+                            Created by {post.username ? post.username : 'Unknown User'} on {new Date(post.timestamp.seconds * 1000).toLocaleString()}
+                        </p>
+                    </div>
+
+                    {/* Comment section */}
+                    <div className="comment-section">
+                        {/* Show only 1 comment */}
+                        <div className="comment">
+                            <div className="comment-bubble">
+                                {/* Comment content */}
+                                <p>This is a comment. Lorem ipsum dolor sit amet.</p>
+
+                                {/* Option to see responses */}
+                                <div className="see-responses">
+                                    <span>Show responses</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </animated.div>
             ))}
             <div ref={loadingRef} className="loading-indicator">

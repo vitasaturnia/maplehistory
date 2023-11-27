@@ -1,7 +1,7 @@
-// src/components/InputWithIcons.js
 
 import React from 'react';
-import './feed.css'; // Import your custom CSS file
+import './postcreator.css'; // Import your custom CSS file
+
 
 const InputWithIcons = () => {
     return (

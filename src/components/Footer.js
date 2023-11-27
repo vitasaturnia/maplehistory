@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "gatsby";
-import char from "../img/char.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { StaticImage } from 'gatsby-plugin-image';
 
 import {
   faDiscord,
@@ -63,12 +63,14 @@ const Footer = class extends React.Component {
 
               <div className="column is-one-third social has-text-warning ">
                 <div className="content has-text-centered">
-                <img
-                    src={char}
-                    alt="Maple History"
-                    className=""
-                    style={{ width: "auto", height: "8rem" }}
-                />
+                  <StaticImage
+                      src= "../../public/img/char.png" // Adjust the path to your image
+                      alt="MapleHistory"
+                      placeholder="blurred"
+                      layout="fixed"
+                      className="footerlogo"
+
+                  />
               </div>
               </div>
 
