@@ -45,6 +45,7 @@ const Profile = () => {
         }
     };
 
+
     return (
         <div className="section has-text-warning">
             {user ? (
@@ -60,17 +61,20 @@ const Profile = () => {
                             <p className="has-text-warning">
                                 <strong className="has-text-warning">Username:</strong> {profile.username ? profile.username : <span className="is-italic">Not set</span>}
                             </p>
+                            <p className="has-text-warning"><strong className="has-text-warning">IGN:</strong> {profile.ingameUsername ? profile.ingameUsername : <span className="is-italic">Not set</span>}</p>
+                                <p className="has-text-warning">
+                                    <strong className="has-text-warning">Server:</strong> {profile.server ? profile.server : <span className="is-italic">Not set</span>}
+                                </p>
                             <p className="has-text-warning">
-                                <strong className="has-text-warning">IGN:</strong> {profile.ingameUsername ? profile.ingameUsername : <span className="is-italic">Not set</span>}
-                            </p>
-                            <p className="has-text-warning">
-                                <strong className="has-text-warning">Guild:</strong> {profile.guild ? profile.guild : <span className="is-italic">Not set</span>}
+
+                            <strong className="has-text-warning">Guild:</strong> {profile.guild ? profile.guild : <span className="is-italic">Not set</span>}
                             </p>
                             <p className="has-text-warning">
                                 <strong className="has-text-warning">Year Joined:</strong> {profile.year_joined ? profile.year_joined : <span className="is-italic">Not set</span>}
                             </p>
-
-
+                            <p className="has-text-warning">
+                                <strong className="has-text-warning">Legion score:</strong> {profile.legion ? profile.legion : <span className="is-italic">Not set</span>}
+                            </p>
 
                         </div>
                     ) : (
@@ -81,6 +85,7 @@ const Profile = () => {
                 <div className="has-text-centered">
                     Please <Link to="/login" className="has-text-weight-bold">login</Link> to view your profile.
                 </div>
+
             )}
         </div>
     );

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { collection, query, orderBy, onSnapshot, startAfter, limit, doc, setDoc, updateDoc, serverTimestamp, increment, deleteDoc } from 'firebase/firestore';
+import { collection, query, orderBy, onSnapshot, startAfter, limit, doc, addDoc, updateDoc, serverTimestamp, increment, deleteDoc, where, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { getAuth } from "firebase/auth";
 import { useTransition, animated } from 'react-spring';
-import PostWithComments from './PostWithComments'; // Adjust the path as necessary
+import debounce from 'lodash/debounce';
+import PostWithComments from './PostWithComments';
 
 const POSTS_PER_PAGE = 3;
 
@@ -15,71 +16,45 @@ export default function FeedGenerator() {
     const [likedPosts, setLikedPosts] = useState(new Set());
     const loadingRef = useRef(null);
 
+    console.log('FeedGenerator component rendered');
+
     const auth = getAuth();
-    const currentUser = auth.currentUser;
-    const currentUserId = currentUser ? currentUser.uid : null;
-
-    const likePost = async (postId) => {
-        if (!currentUserId) {
-            console.error("User not authenticated");
-            return;
-        }
-
-        const likeId = `${currentUserId}_${postId}`;
-        const likeRef = doc(db, 'likes', likeId);
-        const postRef = doc(db, 'posts', postId);
-
-        try {
-            await setDoc(likeRef, {
-                userId: currentUserId,
-                postId: postId,
-                timestamp: serverTimestamp(),
-            });
-
-            await updateDoc(postRef, {
-                likeCount: increment(1),
-            });
-
-            setLikedPosts(prevLikedPosts => new Set(prevLikedPosts.add(postId)));
-        } catch (error) {
-            console.error("Error liking the post: ", error);
-        }
-    };
+    const currentUserId = auth.currentUser?.uid;
+    console.log('Current User ID:', currentUserId);
 
     const unlikePost = async (postId) => {
-        if (!currentUserId) {
-            console.error("User not authenticated");
-            return;
-        }
+        const likeQuery = query(collection(db, 'likes'), where('userId', '==', currentUserId), where('postId', '==', postId));
+        const likeSnapshot = await getDocs(likeQuery);
+        likeSnapshot.forEach(async (doc) => {
+            await deleteDoc(doc.ref);
+        });
 
-        const likeId = `${currentUserId}_${postId}`;
-        const likeRef = doc(db, 'likes', likeId);
         const postRef = doc(db, 'posts', postId);
+        await updateDoc(postRef, {
+            likeCount: increment(-1),
+        });
 
-        try {
-            await deleteDoc(likeRef);
-
-            await updateDoc(postRef, {
-                likeCount: increment(-1),
-            });
-
-            setLikedPosts(prevLikedPosts => {
-                const newLikedPosts = new Set(prevLikedPosts);
-                newLikedPosts.delete(postId);
-                return newLikedPosts;
-            });
-        } catch (error) {
-            console.error("Error unliking the post: ", error);
-        }
+        setLikedPosts(new Set([...likedPosts].filter(id => id !== postId)));
     };
 
-    const isPostLiked = useCallback(
-        (postId) => likedPosts.has(postId),
-        [likedPosts]
-    );
+    const sharePost = async (postId) => {
+        await addDoc(collection(db, 'shares'), {
+            userId: currentUserId,
+            postId: postId,
+            timestamp: serverTimestamp(),
+        });
 
-    const fetchPosts = useCallback(() => {
+        const postRef = doc(db, 'posts', postId);
+        await updateDoc(postRef, {
+            shareCount: increment(1),
+        });
+    };
+
+    const isLiked = (postId) => likedPosts.has(postId);
+
+    const fetchPosts = useCallback(debounce(async () => {
         if (loading || !hasMore) return;
+        console.log('Fetching posts...');
         setLoading(true);
 
         let postsQuery = query(collection(db, 'posts'), orderBy('timestamp', 'desc'), limit(POSTS_PER_PAGE));
@@ -93,7 +68,11 @@ export default function FeedGenerator() {
         }
 
         const unsubscribe = onSnapshot(postsQuery, (snapshot) => {
-            const newPosts = snapshot.docs.map((doc) => ({
+            console.log('Posts snapshot:', snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data(),
+            })));
+            const newPosts = snapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data(),
             }));
@@ -102,10 +81,12 @@ export default function FeedGenerator() {
             setLastVisible(snapshot.docs[snapshot.docs.length - 1]);
             setHasMore(newPosts.length === POSTS_PER_PAGE);
             setLoading(false);
+        }, (error) => {
+            console.error('Error fetching posts:', error);
         });
 
         return () => unsubscribe();
-    }, [lastVisible, loading, hasMore]);
+    }, 300), [lastVisible, loading, hasMore]);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -125,6 +106,7 @@ export default function FeedGenerator() {
             if (loadingRef.current) {
                 observer.unobserve(loadingRef.current);
             }
+            fetchPosts.cancel();
         };
     }, [fetchPosts, hasMore]);
 
@@ -135,20 +117,46 @@ export default function FeedGenerator() {
         keys: post => post.id
     });
 
+    const likePost = async (postId) => {
+        const likeQuery = query(collection(db, 'likes'), where('userId', '==', currentUserId), where('postId', '==', postId));
+        const likeSnapshot = await getDocs(likeQuery);
+
+        if (likeSnapshot.empty) {
+            await addDoc(collection(db, 'likes'), {
+                userId: currentUserId,
+                postId: postId,
+                timestamp: serverTimestamp(),
+            });
+
+            const postRef = doc(db, 'posts', postId);
+            await updateDoc(postRef, {
+                likeCount: increment(1),
+            });
+
+            setLikedPosts(new Set([...likedPosts, postId]));
+        }
+    };
+
     return (
         <div className="feed-container minheight100">
             {transitions((styles, post) => (
                 <animated.div style={styles} key={post.id}>
                     <PostWithComments
+                        postId={post.id}
                         username={post.username ? post.username : 'Unknown User'}
                         postDate={new Date(post.timestamp.seconds * 1000).toLocaleString()}
                         content={post.content}
-                        isLiked={isPostLiked(post.id)}
+                        isLiked={isLiked(post.id)}
                         onLike={() => likePost(post.id)}
                         onUnlike={() => unlikePost(post.id)}
+                        onShare={() => sharePost(post.id)}
                     />
                 </animated.div>
             ))}
+            <div ref={loadingRef} className="loading-indicator">
+                {loading && <p>Loading more posts...</p>}
+            </div>
+            {!hasMore && <div className="end-of-feed">End of Feed</div>}
         </div>
     );
 }

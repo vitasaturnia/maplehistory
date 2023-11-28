@@ -98,7 +98,7 @@ const Navbar = () => {
                   <a className="navbar-link" onClick={toggleDropdown}>
                     <FontAwesomeIcon icon={faUser} className="is-size-5 has-text-warning accountsymbol" />
                   </a>
-                  <div className="navbar-dropdown" style={{ backgroundColor: 'black' }}>
+                  <div className="navbar-dropdown">
                     {user ? (
                         <>
                           <div className="">

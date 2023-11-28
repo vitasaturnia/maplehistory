@@ -1,7 +1,5 @@
 import React from 'react';
-import { navigate } from "gatsby-link";
 import Layout from "../components/Layout";
-import { Link, graphql } from "gatsby";
 
 const Index = () => {
     return (
@@ -27,9 +25,9 @@ const Index = () => {
 
                 <div className="columns ">
                     <div className="column has-text-centered">
-                        <h3 className="is-size-3 subtitle has-text-weight-semibold has-text-warning">
+                        <h4 className="is-size-4 subtitle has-text-weight-semibold has-text-warning">
                             Create an Army
-                        </h3>
+                        </h4>
                         <p>
                             The time is here. It's time to join forces with your fellow Maplers.
                             <br/>
@@ -37,9 +35,9 @@ const Index = () => {
                         </p>
                     </div>
                     <div className="column has-text-centered">
-                        <h3 className="is-size-3 subtitle has-text-weight-semibold has-text-warning">
+                        <h4 className="is-size-4 subtitle has-text-weight-semibold has-text-warning">
                             For the Cause
-                        </h3>
+                        </h4>
                         <p>
                            From giving gear to beginners, to helping the homeless community. One step at a time but sky is the limit.
                         </p>

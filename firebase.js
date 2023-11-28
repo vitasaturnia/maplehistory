@@ -1,28 +1,43 @@
+
+require("dotenv").config({
+    path: `.env.${process.env.NODE_ENV}`,
+});
+
+import firebase from 'firebase/app';
 import { initializeApp, getApp, getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth } from "firebase/auth"; // Importing Firebase Auth
+import { getAuth } from "firebase/auth";
 
-// Your web app's Firebase configuration
+
+
 const firebaseConfig = {
-    apiKey: "AIzaSyCo72n2CJWf6WFGDs8jDGDyz07IM3wQZoM",
-    authDomain: "maplehistorymsh.firebaseapp.com",
-    projectId: "maplehistorymsh",
-    storageBucket: "maplehistorymsh.appspot.com",
-    messagingSenderId: "958498273176",
-    appId: "1:958498273176:web:fc15f641ea1db91de79ded",
-    measurementId: "G-BY6NLMDTPJ"
+    apiKey: process.env.GATSBY_API_KEY,
+    authDomain: process.env.GATSBY_AUTH_DOMAIN,
+    projectId: process.env.GATSBY_PROJECT_ID,
+    storageBucket: process.env.GATSBY_STORAGE_BUCKET,
+    messagingSenderId: process.env.GATSBY_MESSAGING_SENDER_ID,
+    appId: process.env.GATSBY_APP_ID,
+    measurementId: process.env.GATSBY_MEASUREMENT_ID
 };
+
+console.log("Firebase Config:", {
+    apiKey: process.env.GATSBY_API_KEY,
+    authDomain: process.env.GATSBY_AUTH_DOMAIN,
+    // ... other configurations
+});
+
+
 
 // Initialize Firebase
 let app;
 if (!getApps().length) {
     app = initializeApp(firebaseConfig);
 } else {
-    app = getApp(); // if already initialized, use that one
+    app = getApp();
 }
 
-// Initialize Firebase Analytics
+// Initialize Firebase Analytics (if needed)
 let analytics;
 if (typeof window !== 'undefined') {
     analytics = getAnalytics(app);
@@ -32,6 +47,6 @@ if (typeof window !== 'undefined') {
 const db = getFirestore(app);
 
 // Initialize Firebase Auth
-const auth = getAuth(app); // Initializing Firebase Auth
+const auth = getAuth(app);
 
-export { db, app, analytics, auth }; // Exporting Firestore, Firebase App, Analytics, and Auth
+export { db, app, analytics, auth };

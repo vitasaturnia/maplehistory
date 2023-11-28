@@ -1,5 +1,9 @@
-// gatsby-browser.js and gatsby-ssr.js
+import { AuthProvider } from './src/context/Authcontext';
 
-import "firebase/auth"
-import "firebase/firestore"
-import "firebase/functions"
+export const wrapRootElement = ({ element }) => {
+    return (
+        <AuthProvider>
+            {element}
+        </AuthProvider>
+    );
+};

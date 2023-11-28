@@ -64,7 +64,7 @@ const Footer = class extends React.Component {
               <div className="column is-one-third social has-text-warning ">
                 <div className="content has-text-centered">
                   <StaticImage
-                      src= "../../public/img/char.png" // Adjust the path to your image
+                      src= "../../static/img/char.png" // Adjust the path to your image
                       alt="MapleHistory"
                       placeholder="blurred"
                       layout="fixed"

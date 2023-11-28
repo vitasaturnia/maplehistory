@@ -1,9 +1,5 @@
 import React from "react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { navigate } from "gatsby-link";
-import { faFacebook, faDiscord } from "@fortawesome/free-brands-svg-icons";
-import contactform from "../components/contactform.sass";
 
 function encode(data) {
     return Object.keys(data)

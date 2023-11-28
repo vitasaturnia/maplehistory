@@ -43,7 +43,7 @@ const TemplateWrapper = ({ children }) => {
                     href={`${withPrefix("/")}img/leaf.png`} // Corrected the file extension
                     color="#ff4400"
                 />
-                <meta name="theme-color" content="#fff" />
+                <meta name="theme-color" content="#ffffff" />
 
                 <meta property="og:title" content="MapleHistory" />
                 <meta

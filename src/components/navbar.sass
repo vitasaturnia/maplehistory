@@ -53,6 +53,30 @@ $navbar-box-shadow-size: 0
   list-style: none !important
 
 
+
+@media screen and (max-width: 768px)
+  .navbar-end
+    .navbar-link
+      padding-right: none
+
+  @media screen and (max-width: 768px)
+    a.navbar-link::after
+      margin-right: 0!important
+
+.navbar .navbar-end .has-dropdown .navbar-link
+  position: relative
+  display: inline-flex
+  align-items: center
+  justify-content: center
+
+  &::after
+    content: '' // Add your desired content for the ::after element
+    position: absolute
+    top: 50%
+// Add any other styling you need for the ::after element
+
+
+
 /* Styles for the mobile dropdown
 
 .mobile-dropdown
@@ -125,6 +149,26 @@ $navbar-box-shadow-size: 0
     box-shadow: none
     // Ensure no shadow
     color: inherit
-// Inherit color from parent
+
+
+
+
+.navbar-dropdown
+  background-color: $black
+
+
+@media screen and (max-width: 768px)
+  .navbar-dropdown
+    border-bottom: 1px solid gold
+    background: none !important
+
+
+
+
+
+@media screen and (max-width: 768px)
+  .navbar-endl
+    .accuntsymbol, div.navbar-dropdown
+      display: none!important
 
 
