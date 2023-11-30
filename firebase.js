@@ -1,13 +1,8 @@
-
-require("dotenv").config({
-    path: `.env.${process.env.NODE_ENV}`,
-});
-
-import firebase from 'firebase/app';
 import { initializeApp, getApp, getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
+
 
 
 
@@ -20,12 +15,6 @@ const firebaseConfig = {
     appId: process.env.GATSBY_APP_ID,
     measurementId: process.env.GATSBY_MEASUREMENT_ID
 };
-
-console.log("Firebase Config:", {
-    apiKey: process.env.GATSBY_API_KEY,
-    authDomain: process.env.GATSBY_AUTH_DOMAIN,
-    // ... other configurations
-});
 
 
 

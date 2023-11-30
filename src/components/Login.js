@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from '../../firebase'; // Ensure the path is correct
 import { Link, navigate } from 'gatsby';
+import { useAuth } from '../context/Authcontext'; // Ensure the path is correct
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+
+    const { signIn } = useAuth(); // Destructure signIn from useAuth
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -17,61 +18,46 @@ const Login = () => {
             return;
         }
 
-        if (!password) {
-            setError('Please enter your password.');
+        if (!isValidPassword(password)) {
+            setError('Password must be at least 8 characters long.');
             return;
         }
 
         setLoading(true);
 
         try {
-            await signInWithEmailAndPassword(auth, email, password);
-            // Redirect to the user's profile after successful login
-            navigate('/myprofile');
+            await signIn(email, password);
+            navigate('/myprofile'); // Redirect to the user's profile after successful login
         } catch (error) {
-            console.error('Login error:', error);
-
-            if (error.code === 'auth/wrong-password') {
-                setError('Wrong password. Please try again.');
-            } else if (error.code === 'auth/user-not-found') {
-                setError('User not found.');
-            } else {
-                setError('An error occurred while logging in. Please try again later.');
-            }
+            handleError(error); // Enhanced error handling
         } finally {
             setLoading(false);
         }
     };
 
-    const handlePasswordReset = async () => {
-        if (!email) {
-            setError('Please enter your email to reset your password.');
-            return;
-        }
-
-        try {
-            // Generate the password reset link
-            await sendPasswordResetEmail(auth, email);
-
-            // Inform the user that the password reset email has been sent
-            setError('Password reset email sent. Check your inbox.');
-        } catch (error) {
-            console.error('Password reset error:', error);
-
-            if (error.code === 'auth/invalid-email') {
-                setError('Please enter a valid email address.');
-            } else {
-                setError('Password reset failed. Please check the email address.');
-            }
-        }
-    };
-
     // Function to validate email format
-    const isValidEmail = (email) => {
-        const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-        return emailRegex.test(email);
+    const isValidEmail = (email) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email);
+
+    // Function to validate password
+    const isValidPassword = (password) => password.length >= 8;
+
+    // Enhanced error handling function
+    const handleError = (error) => {
+        console.error('Login error:', error);
+        switch (error.code) {
+            case 'auth/wrong-password':
+                setError('Incorrect password. Please try again or reset your password.');
+                break;
+            case 'auth/user-not-found':
+                setError('No account found with this email. Please register.');
+                break;
+            default:
+                setError('An unexpected error occurred. Please try again later.');
+                break;
+        }
     };
 
+    // JSX layout
     return (
         <div className="centeredcontainer has-text-centered">
             <h1 className="title mb-2 has-text-warning">Login</h1>
@@ -81,23 +67,37 @@ const Login = () => {
             <form onSubmit={handleLogin}>
                 <div>
                     <label className="mb-3 has-text-warning">Email:</label>
-                    <br />
-                    <input className="mt-1em mb-3 redinput" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <br/>
+                    <input
+                        className="mt-1em mb-3 redinput"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
                 </div>
                 <div>
                     <label className="mb-3 mt-1em has-text-warning">Password:</label>
-                    <br />
-                    <input className="mt-1em redinput" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <br/>
+                    <input
+                        className="mt-1em redinput"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
                 </div>
-                <br />
-                <button className="button is-warning is-outlined" type="submit" disabled={loading}>
+                <br/>
+                <button
+                    className="button is-warning is-outlined"
+                    type="submit"
+                    disabled={loading}
+                >
                     {loading ? 'Logging in...' : 'Log In'}
                 </button>
             </form>
-            <p className="has-text-link mt-1em" style={{ cursor: 'pointer' }} onClick={handlePasswordReset}>
+            <p className="has-text-link mt-1em">
                 Forgot your password? Reset it here.
             </p>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {error && <p style={{color: 'red'}}>{error}</p>}
         </div>
     );
 };

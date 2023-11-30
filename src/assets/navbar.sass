@@ -1,0 +1,31 @@
+@import 'base'
+
+$navbar-height: 3.5rem
+$navbar-background-color: $black
+$navbar-item-color: $warning
+$navbar-padding-horizontal: 3em
+
+.navbar-dropdown
+  &:hover
+    background-color: none!important
+
+
+// Function to lighten a color by a specific percentage
+@function lighten-color($color, $percent)
+  @return lighten($color, $percent)
+
+
+$navbar-dropdown-background-color: lighten-color($black, 4%)
+
+
+
+
+.navbar
+  padding: 0.7rem 0.7rem 0.7rem 0.7rem!important
+
+.navbar-dropdown
+  background-color: lighten-color($black, 5%)
+  border: 1px solid rgba($warning, 0.25) !important
+
+.accounticon
+  color: $warning!important

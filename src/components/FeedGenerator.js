@@ -16,7 +16,6 @@ export default function FeedGenerator() {
     const [likedPosts, setLikedPosts] = useState(new Set());
     const loadingRef = useRef(null);
 
-    console.log('FeedGenerator component rendered');
 
     const auth = getAuth();
     const currentUserId = auth.currentUser?.uid;

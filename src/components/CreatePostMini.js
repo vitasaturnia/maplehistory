@@ -1,7 +1,7 @@
 
 import React from 'react';
-import './postcreator.css'; // Import your custom CSS file
-import './post.css'; // input and icon styling classes from there
+import '../assets/postcreator.css'; // Import your custom CSS file
+import '../assets/post.css'; // input and icon styling classes from there
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';

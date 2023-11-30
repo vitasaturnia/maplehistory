@@ -3,16 +3,16 @@
 @import 'footer'
 
 
-
-
-
-
-
+.navbarlogo
+  -moz-transform: scale(-1, -1)
+  -o-transform: scale(-1, -1)
+  -webkit-transform: scale(-1, -1)
+  transform: scale(-1, -1)
 
 @media screen and (max-width: 768px)
   a
     &:hover
-      color: inherit
+      color: inherit!important
 
 
 .icon
@@ -21,6 +21,12 @@
 
   &:hover
     color: #E6AF2E /* Green color on hover */
+
+
+
+
+
+
 
 
 
@@ -144,14 +150,6 @@ input.contactinput
 
 
 
-// no vertical margin mobile
-@media screen and (max-width: 768px)
-  .navbar
-    div.nvmm
-      margin-top: 0 !important
-      margin-bottom: 0 !important
-      padding-top: 0 !important
-      padding-bottom: 0 !important
 
 @media screen and (max-width: 768px)
   .footer
@@ -228,11 +226,7 @@ input.contactinput
   animation: fade-in 1s ease-in-out
 
 
-// end community section
-
-
-
-
+// end community sectio
 
 
 
@@ -411,6 +405,17 @@ textarea.redinput
   border: 1px solid rgba($warning, 0.25) !important
 
 
+div.control, textarea.postarea
+  justify-content: center!important
+  align-items: center!important
+  overflow: none!important
+
+
+.textarea
+  max-width: 100%!important
+  max-height: 100%!important
+  overflow: none!important
+  margin: auto!important
 
 
 
@@ -433,6 +438,7 @@ textarea.redinput
   position: relative
   opacity: 0.5
   resize: none !important
+
 
   @media screen and (max-width: 768px)
     width: 85vw!important
@@ -582,11 +588,6 @@ newsletter
 //override default max size of logo
 
 
-
-
-.accountsymbol
-  height: 1.5em!important
-  width: auto!important
 
 
 .herologo
@@ -749,6 +750,7 @@ $gold: #E6AF2E
       background-image: -moz-linear-gradient(180deg, $gold, transparent)
       background-image: -o-linear-gradient(180deg, $gold, transparent)
       background-image: linear-gradient(90deg, $gold, transparent)
+      
 
 
 

@@ -40,7 +40,7 @@ const Footer = class extends React.Component {
                   </ul>
                 </div>
                 <div className="column nvmm is-half has-text-centered">
-                  <ul className="footer-list">
+                  <ul className="menu-list">
                     <li>
                       <Link className="navbar-item has-text-warning" to="/wiki">
                         Wiki
@@ -67,10 +67,7 @@ const Footer = class extends React.Component {
                       src= "../../static/img/char.png" // Adjust the path to your image
                       alt="MapleHistory"
                       placeholder="blurred"
-                      layout="fixed"
-                      width={49}
                       height={72}
-
                       className="footerlogo"
 
                   />

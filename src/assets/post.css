@@ -32,7 +32,8 @@
 @media screen and (max-width: 768px) { /* Aanpassen voor specifieke breakpoint */
   .post-container {
     /* Behoud breedte-instellingen indien nodig */
-    min-height: 85vh; /* Bijvoorbeeld 50% van de schermhoogte */
+    min-height: 75vh;
+    min-width: 85vw!important;/* Bijvoorbeeld 50% van de schermhoogte */
     /* Andere stijlen specifiek voor mobiele apparaten */
   }
 
@@ -242,11 +243,10 @@
 /* Transition for scaling back to original size */
 .options-bar button .buttonglow {
   transform: scale(1); /* Initial scale set to 1 */
-  transition: transform 0.6s ease;
+  transition: transform 0.3s ease;
 }
 
-
-
+.postarea
 
 
 .username:hover {

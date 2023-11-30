@@ -1,36 +1,31 @@
 import React, { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase'; // Ensure the path is correct
-import { Link } from "gatsby";
+import { useAuth } from '../context/Authcontext'; // Adjust the path as per your project structure
+import { Link, navigate } from 'gatsby';
 
 const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [isRegistered, setIsRegistered] = useState(false);
+
+    const { signUp } = useAuth(); // Using signUp from context
+
 
     const handleSignUp = async (e) => {
         e.preventDefault();
+
+        if (!email || !password) {
+            setError('Please enter all fields.');
+            return;
+        }
+
         try {
-            await createUserWithEmailAndPassword(auth, email, password);
-            setIsRegistered(true);
+            await signUp( email, password);
+            navigate('/login'); // Redirect to login after successful registration
         } catch (error) {
             console.error('Sign up error:', error);
-            setError('Sign up failed. ' + error.message);
+            setError(error.message);
         }
     };
-
-    if (isRegistered) {
-        return (
-            <div className="centeredcontainer has-text-centered">
-                <h1 className="title has-text-warning">Registration Complete</h1>
-                <p className="subtitle is-italic has-text-warning is-5">Please check your inbox for the confirmation link.</p>
-                <Link to="/login" className="button is-warning is-outlined">
-                    Go to Login
-                </Link>
-            </div>
-        );
-    }
 
     return (
         <div className="centeredcontainer has-text-centered">
@@ -42,12 +37,12 @@ const Register = () => {
                 <div>
                     <label className="mb-3 has-text-warning">Email:</label>
                     <br />
-                    <input className="mt-1em mb-3 redinput" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input className="mt-1em mb-3 redinput" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
                 <div>
                     <label className="mb-3 mt-1em has-text-warning">Password:</label>
                     <br />
-                    <input className="mt-1em redinput" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <input className="mt-1em redinput" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                 </div>
                 <br />
                 <button className="button is-warning is-outlined" type="submit">Sign Up</button>

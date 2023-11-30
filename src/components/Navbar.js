@@ -1,129 +1,65 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, navigate } from "gatsby";
-import logo from "../img/mushroom.png";
+import { Link } from "gatsby";
+import Logo from "../img/leaf.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { auth } from '../../firebase'; // Ensure this path is correct
-import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 const Navbar = () => {
-  const [active, setActive] = useState(false);
-  const [user, setUser] = useState(null);
-  const dropdownRef = useRef(null);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-
-    return () => unsubscribe(); // Cleanup subscription on unmount
-  }, []);
-
-  const toggleHamburger = () => {
-    setActive((prevActive) => !prevActive);
-  };
-
-  const toggleDropdown = () => {
-    if (dropdownRef.current) {
-      dropdownRef.current.classList.toggle('is-active');
-    }
-  };
-
-  const handleProfileClick = () => {
-    if (user) {
-      navigate('/myprofile');
-    } else {
-      navigate('/login'); // Change to your login path
-    }
-  };
-
-  const handleSignOut = async () => {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error('Error signing out: ', error);
-    }
-  };
 
   return (
-      <nav className="navbar is-transparent is-desktop" role="navigation" aria-label="main-navigation">
-        <div className="container">
-          <div className="column">
-            <div className="navbar-brand">
-              <Link to="/" className="navbar-item" title="logo">
-                <img src={logo} alt="MapleHistory" className="logoclass" />
-              </Link>
-              {/* Hamburger menu */}
-              <div
-                  className={`navbar-burger burger ${active ? "is-active" : ""}`}
-                  data-target="navMenu"
-                  role="menuitem"
-                  tabIndex={0}
-                  onKeyPress={toggleHamburger}
-                  onClick={toggleHamburger}
-              >
-                <span />
-                <span />
-                <span />
+      <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="https://bulma.io">
+            <img src={Logo} className="navbarlogo" />
+          </a>
+
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item">
+              Home
+            </a>
+
+            <a class="navbar-item">
+              Documentation
+            </a>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                More
+              </a>
+
+              <div class="navbar-dropdown">
+                <a class="navbar-item">
+                  About
+                </a>
+                <a class="navbar-item">
+                  Jobs
+                </a>
+                <a class="navbar-item">
+                  Contact
+                </a>
               </div>
             </div>
           </div>
-          <div id="navMenu" className={`navbar-menu ${active ? "is-active" : ""}`}>
-            <div className="column nvmm">
-              <div className="navbar-start has-text-centered">
-                <Link className="navbar-item" to="/about">
-                  About
-                </Link>
-                <Link className="navbar-item" to="/wiki">
-                  Wiki
-                </Link>
-                <Link className="navbar-item" to="/guild">
-                  Guild
-                </Link>
-                <Link className="navbar-item" to="/community">
-                  Community
-                </Link>
-                <Link className="navbar-item" to="/feed">
-                  Maple Book
-                </Link>
-                <Link className="navbar-item" to="/contact">
-                  Contact
-                </Link>
-              </div>
-            </div>
-            <div className="column nvmm">
-              <div className="navbar-end has-text-centered">
-                {/* Dropdown */}
-                <div className="navbar-item has-dropdown is-hoverable" ref={dropdownRef}>
-                  <a className="navbar-link" onClick={toggleDropdown}>
-                    <FontAwesomeIcon icon={faUser} className="is-size-5 has-text-warning accountsymbol" />
-                  </a>
-                  <div className="navbar-dropdown">
-                    {user ? (
-                        <>
-                          <div className="">
 
-                          <Link to="/myprofile" className="navbar-item">
-                            My Profile
-                          </Link>
-                          <Link to="/editprofile" className="navbar-item">
-                            Edit Profile
-                          </Link>
-                          <a className="navbar-item" onClick={handleSignOut}>
-                            Logout
-                          </a>
-                          </div>
-                        </>
-                    ) : (
-                        <Link to="/login" className="navbar-item">
-                          Login
-                        </Link>
-                    )}
-                  </div>
-                </div>
-                {/* End Dropdown */}
+          <div class="navbar-end">
+            <div className="navbar-item has-dropdown is-hoverable">
+              <div className="navbar-item">
+                  <FontAwesomeIcon className="icon accounticon has-text-warning" icon={faUser}  size="3x"/>
               </div>
-            </div>
+              <div className="navbar-dropdown ">
+              <a className="navbar-item">
+                Log in
+            </a>
+              </div>
+              </div>
           </div>
         </div>
       </nav>

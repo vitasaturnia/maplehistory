@@ -1,8 +1,4 @@
-require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`,
-});
-
-
+// Description: Config file for GatsbyJS
 module.exports = {
   siteMetadata: {
     title: "MapleHistory",

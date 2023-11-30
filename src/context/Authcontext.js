@@ -1,7 +1,8 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { auth } from "../../firebase"; // Adjust the path as per your project structure
+import { auth } from "../../firebase";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut as firebaseSignOut } from "firebase/auth";
 
-export const Authcontext = createContext(undefined);
+export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
@@ -14,16 +15,26 @@ export const AuthProvider = ({ children }) => {
         });
 
         // Cleanup subscription on unmount
-        return () => unsubscribe();
+        return unsubscribe;
     }, []);
 
-    // Add more auth functions as needed (e.g., login, logout, signup)
+    const signUp = (email, password) => {
+        return createUserWithEmailAndPassword(auth, email, password);
+    };
+
+    const signIn = (email, password) => {
+        return signInWithEmailAndPassword(auth, email, password);
+    };
+
+    const logout = () => {
+        return firebaseSignOut(auth);
+    };
 
     return (
-        <Authcontext.Provider value={{ currentUser, loading }}>
+        <AuthContext.Provider value={{ currentUser, loading, signUp, signIn, logout }}>
             {!loading && children}
-        </Authcontext.Provider>
+        </AuthContext.Provider>
     );
 };
 
-export const useAuth = () => useContext(Authcontext);
+export const useAuth = () => useContext(AuthContext);

@@ -1,171 +1,61 @@
-import React, { useState, useEffect } from 'react';
-import { auth, db } from '../../firebase'; // Import your Firebase configuration
-import { onAuthStateChanged, updatePassword, updateEmail } from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore'; // Import Firestore functions
+import React, { useState, useContext, useEffect } from 'react';
+import { AuthContext } from '../context/Authcontext'; // Update this path
+import { updatePassword, updateEmail } from 'firebase/auth';
+import { doc, getDoc, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { db } from '../../firebase'; // Ensure this path is correct
 
 const EditProfile = () => {
-    const [user, setUser] = useState(null);
-    const [profile, setProfile] = useState(null);
+    const { currentUser } = useContext(AuthContext);
     const [username, setUsername] = useState('');
-    const [newIGN, setNewIGN] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [newEmail, setNewEmail] = useState('');
+    const [newIGN, setNewIGN] = useState('');
     const [newGuild, setNewGuild] = useState('');
     const [newYearJoined, setNewYearJoined] = useState('');
-    const [newProfilePicture, setNewProfilePicture] = useState(null);
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-
-            if (currentUser) {
-                const userId = currentUser.uid;
-                const userDocRef = doc(db, 'users', userId);
-
-                getDoc(userDocRef)
-                    .then((userDocSnapshot) => {
-                        if (userDocSnapshot.exists()) {
-                            const profileData = userDocSnapshot.data();
-                            setProfile(profileData);
-
-                            if (profileData.username) {
-                                setUsername(profileData.username);
-                            }
-                            if (profileData.ingameUsername) {
-                                setNewIGN(profileData.ingameUsername);
-                            }
-                            if (profileData.guild) {
-                                setNewGuild(profileData.guild);
-                            }
-                            if (profileData.yearJoined) {
-                                setNewYearJoined(profileData.yearJoined);
-                            }
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error fetching profile:', error);
-                    });
-            }
-        });
-
-        return () => unsubscribe();
-    }, []);
+        // Fetch profile data and set the states
+    }, [currentUser]);
 
     const handleUpdateUsername = () => {
-        if (user) {
-            const userId = user.uid;
-            const userDocRef = doc(db, 'users', userId);
-
-            setDoc(userDocRef, { username: username }, { merge: true })
-                .then(() => {
-                    setSuccessMessage('Username updated successfully.');
-                })
-                .catch((error) => {
-                    setErrorMessage('Error updating username: ' + error.message);
-                });
-        }
+        // Logic for updating the username
     };
 
     const handleUseIGN = () => {
-        if (user) {
-            const userId = user.uid;
-            const userDocRef = doc(db, 'users', userId);
-
-            setDoc(userDocRef, { username: newIGN }, { merge: true })
-                .then(() => {
-                    setUsername(newIGN);
-                    setSuccessMessage('Username updated to IGN successfully.');
-                })
-                .catch((error) => {
-                    setErrorMessage('Error updating username to IGN: ' + error.message);
-                });
-        }
-    };
-
-    const handleUpdateIGN = () => {
-        if (user) {
-            const userId = user.uid;
-            const userDocRef = doc(db, 'users', userId);
-
-            setDoc(userDocRef, { ingameUsername: newIGN }, { merge: true })
-                .then(() => {
-                    setSuccessMessage('IGN updated successfully.');
-                })
-                .catch((error) => {
-                    setErrorMessage('Error updating IGN: ' + error.message);
-                });
-        }
+        // Logic for using IGN as username
     };
 
     const handleUpdatePassword = () => {
-        if (user) {
-            updatePassword(user, newPassword)
-                .then(() => {
-                    setSuccessMessage('Password updated successfully.');
-                })
-                .catch((error) => {
-                    setErrorMessage('Error updating password: ' + error.message);
-                });
-        }
+        // Logic for updating the password
     };
 
     const handleUpdateEmail = () => {
-        if (user) {
-            updateEmail(user, newEmail)
-                .then(() => {
-                    setSuccessMessage('Email address updated successfully.');
-                })
-                .catch((error) => {
-                    setErrorMessage('Error updating email address: ' + error.message);
-                });
-        }
+        // Logic for updating the email
+    };
+
+    const handleUpdateIGN = () => {
+        // Logic for updating IGN
     };
 
     const handleUpdateGuild = () => {
-        if (user) {
-            const userId = user.uid;
-            const userDocRef = doc(db, 'users', userId);
-
-            setDoc(userDocRef, { guild: newGuild }, { merge: true })
-                .then(() => {
-                    setSuccessMessage('Guild updated successfully.');
-                })
-                .catch((error) => {
-                    setErrorMessage('Error updating Guild: ' + error.message);
-                });
-        }
+        // Logic for updating Guild
     };
 
     const handleUpdateYearJoined = () => {
-        if (user) {
-            const userId = user.uid;
-            const userDocRef = doc(db, 'users', userId);
-
-            setDoc(userDocRef, { yearJoined: newYearJoined }, { merge: true })
-                .then(() => {
-                    setSuccessMessage('Year Joined updated successfully.');
-                })
-                .catch((error) => {
-                    setErrorMessage('Error updating Year Joined: ' + error.message);
-                });
-        }
-    };
-
-    const handleUpdateProfilePicture = () => {
-        // Logic to update the profile picture
-        // This will depend on how you handle file uploads and storage
-        // For example, uploading to Firebase Storage and then updating the Firestore user document
+        // Logic for updating Year Joined
     };
 
     return (
         <div className="section has-text-warning">
             <div className="section has-text-centered">
+                {/* Change Login Credentials */}
                 <h3 className="subtitle has-text-warning has-text-weight-bold">Change Login Credentials</h3>
                 {successMessage && <p className="success-message">{successMessage}</p>}
                 {errorMessage && <p className="error-message">{errorMessage}</p>}
 
+                {/* Username Update */}
                 <div className="has-text-centered">
                     <h3 className="has-text-weight-bold">Username</h3>
                     <input
@@ -179,6 +69,7 @@ const EditProfile = () => {
                     </div>
                 </div>
 
+                {/* Password Update */}
                 <div>
                     <h3 className="has-text-weight-bold">Password</h3>
                     <input
@@ -191,6 +82,7 @@ const EditProfile = () => {
                     </div>
                 </div>
 
+                {/* Email Update */}
                 <div>
                     <h3 className="has-text-weight-bold">Email Address</h3>
                     <input
@@ -203,9 +95,12 @@ const EditProfile = () => {
                     </div>
                 </div>
             </div>
+
             <div className="section has-text-centered">
+                {/* Change Profile */}
                 <h3 className="subtitle has-text-warning has-text-weight-bold">Change Profile</h3>
 
+                {/* IGN Update */}
                 <div>
                     <h3 className="has-text-weight-bold">IGN</h3>
                     <input
@@ -218,6 +113,7 @@ const EditProfile = () => {
                     </div>
                 </div>
 
+                {/* Guild Update */}
                 <div>
                     <h3 className="has-text-weight-bold">Guild</h3>
                     <input
@@ -230,6 +126,7 @@ const EditProfile = () => {
                     </div>
                 </div>
 
+                {/* Year Joined Update */}
                 <div>
                     <h3 className="has-text-weight-bold">Year Joined</h3>
                     <input
